@@ -1,5 +1,7 @@
-cbindings/BUILD
-cbinding/Makefile
-cbindings/tmp
-cbindings/package/*.deb
-cbindings/package/*.rpm
+BUILD/
+Makefile
+tmp/
+*.deb
+*.rpm
+libQt5Pas*
+
