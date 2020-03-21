@@ -2,13 +2,10 @@
 
 # Ugly script to package the libqt5pas library for debian.
 # Note : 
-#	* We are not using the incorrect (by Debian definition) soname for the package, it
-#	  should be libqt5pas2  but thats just plain silly.
-#	* We are jumping version numbers from the 1.2.6, 2.6, ~beta and all sorts
-#	  of other silly combinations to 2.9.0 and will rev final part until
-# 	  Lazarus 3 is released and then track the Lazarus release number. We don't
-#	  want the package name changing with Lazarus releases, gee !
-#       * The changelog is taged latest-debian-changelog-entry-changed-to-native,
+#	* Based on Lazarus trunk version, its 1.2.8 for now. When Lazarus 3 is
+# 	  released it will become 3.0 and then track the Lazarus release number. We don't
+#	  want the package name changing with Lazarus releases !
+#       * The changelog is tagged by lintian latest-debian-changelog-entry-changed-to-native,
 #	  apparently thats a withdrawn error, reflects my use of U18.04, test on recent system !
 #	* At run time, Lazarus QT apps appear to try and open libQt5Pas.so.1
 
