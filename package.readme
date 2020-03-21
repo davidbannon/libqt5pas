@@ -1,0 +1,27 @@
+package.readme
+
+On a suitably setup machine -
+cd cbindings
+refresh source
+update version file
+qmake -qt=qt5 <enter>
+make <enter>
+(wait awhile)
+strip libQt5Pas.so.1.2.8
+cd package
+./deb-package
+sudo bash ./rpm-package
+
+test
+
+back in the top level dir _
+git tag -a v1.2.8
+git push --tags
+
+In the github page, 'releases', 'draft new release'.
+Some text, add the generated packages, 'publish'.
+back in packages :
+rm *.deb *.rpm
+rm -Rf BUILD
+cd ..
+rm -Rf tmp

@@ -118,7 +118,7 @@ DebianPackageDev
 
 ls -ltr
 
-echo " === OK, now make the rpms with   sudo bash ./rpm_package   <enter> ==="
+echo " === OK, now make the rpms with   sudo bash ./rpm-package   <enter> ==="
 
 
 
