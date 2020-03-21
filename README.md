@@ -1,5 +1,7 @@
 **Unofficial libqt5pas**
 
+Download packaged libraries from https://github.com/davidbannon/libqt5pas/releases/latest
+
 libqt5pas is an interface between Lazarus and the Qt5 libraries.  Not all Qt5 functions are available, only those necessary for Lazarus functionality. See https://wiki.freepascal.org/Qt5_Interface
 
 This is an unofficial copy of the libqt5pas code from the Lazarus Trunk. It is personally (and only personally) recommended as the right version of libqt5pas to use at most times.
