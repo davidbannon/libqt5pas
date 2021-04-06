@@ -10,10 +10,10 @@
 
 
 
-# Binding Release against Qt5 5.6 LTS release.
+# Binding Release Version 2.6 against Qt5 5.6 LTS release.
 # WebKit widgets are disabled until webenginewidgets are implemented.
 
-VERSION = 1.2.8
+VERSION = 1.2.9
 
 QT += gui network printsupport
 TARGET = Qt5Pas
@@ -32,6 +32,11 @@ is64 = $$find(QMAKE_HOST.arch, ".*64")
   message("Added stack alignment options to CXXFLAGS in support of SSE on arch:" $$QMAKE_HOST.arch)
   QMAKE_CXXFLAGS += -mstackrealign -mincoming-stack-boundary=2 
 }  
+
+haiku:isEmpty(is64) {
+  message("Added stack alignment options to CXXFLAGS in support of SSE i386 on Haiku")
+  QMAKE_CXXFLAGS += -mstackrealign -mincoming-stack-boundary=2
+}
 
 !equals(QT_MAJOR_VERSION,5)|!equals(QT_MINOR_VERSION,6) {
   message("Note: This binding version was generated for Qt 5.6.1. Current Qt is" $$QT_VERSION)
@@ -73,8 +78,7 @@ CONFIG -= warn_on
 CONFIG -= create_prl
 CONFIG -= link_prl
 
-CONFIG -= release
-CONFIG += debug
+CONFIG += release
 CONFIG += dll
 CONFIG += warn_off
   
@@ -224,6 +228,9 @@ HEADERS +=  \
            qabstractscrollarea_c.h \
            qabstractscrollarea_hook.h \
            qlclabstractscrollarea_c.h \
+           qaccessible_c.h \
+           qaccessiblewidget_c.h \
+           qlclaccessiblewidget_c.h \
            qabstractslider_c.h \
            qabstractslider_hook.h \
            qscrollbar_c.h \
@@ -561,6 +568,9 @@ SOURCES +=  \
            qstackedwidget_c.cpp \
            qabstractscrollarea_c.cpp \
            qlclabstractscrollarea_c.cpp \
+           qaccessible_c.cpp \
+           qaccessiblewidget_c.cpp \
+           qlclaccessiblewidget_c.cpp \
            qabstractslider_c.cpp \
            qscrollbar_c.cpp \
            qmenu_c.cpp \
