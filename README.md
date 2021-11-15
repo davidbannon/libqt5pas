@@ -1,5 +1,7 @@
 **Unofficial libqt5pas**
 
+**Please Note : you probably don't need these files** The new things that changed between 1.2.8 and 1.2.9 have been removed from Lazarus because of a couple of technical issues. So, you should safely use either 1.2.8 or 1.2.9 with no problems. I hope. https://forum.lazarus.freepascal.org/index.php/topic,54010.0.html
+
 Download packaged libraries from https://github.com/davidbannon/libqt5pas/releases/latest
 
 libqt5pas is an interface between Lazarus and the Qt5 libraries.  Not all Qt5 functions are available, only those necessary for Lazarus functionality. See https://wiki.freepascal.org/Qt5_Interface
