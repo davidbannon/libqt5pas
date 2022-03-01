@@ -1,6 +1,6 @@
 **Unofficial libqt5pas**
 
-**Please Note : you probably don't need these files** The new things that changed between 1.2.8 and 1.2.9 have been removed from Lazarus because of a couple of technical issues. So, you should safely use either 1.2.8 or 1.2.9 with no problems. I hope. https://forum.lazarus.freepascal.org/index.php/topic,54010.0.html
+**Please Note : you probably don't need these files unless you are using Lazarus Trunk** The new things that changed with 1.2.10 only exist in Lazarus Trunk at the moment. 
 
 Download packaged libraries from https://github.com/davidbannon/libqt5pas/releases/latest
 
@@ -17,18 +17,18 @@ Bug reports relating to this repository's packaging or currency should be report
 
 ### Names and Numbers
 
-It appears that Zelijko is now incrementing version numbers. The current release available here is 1.2.9 (April 2021) and that replaces the previous release, here, of 1.2.8 (March 2020).
+The current release available here is 1.2.10 (Feb 2022) and that replaces the previous release, here, of 1.2.9.
 
 
-*  The version of the package distributing this package is the second and third parts of the library version, that was initially **2.8**
+* The version of the package distributing this package is the second and third parts of the library version, that was initially **2.8**
 * The correct name of the installed library on a Linux (and similar) system was initially  libqt5pas**.so.1.2.8** with a symlink to, at least libqt5pas.so.1
 * To make life easier for end users, please comply with these conventions.
 
 ### Prebuild Packages
-Provided are debs and rpms of the library itself and matching development packages.  Only 64 bit packages are available. Most current Linux distributions usually have a reasonably current version of these libraries and if you can use those, you should do so. However, at present, few will have 1.2.9 and, unexpectedly, trunk Lazarus code (April 2021) will not work with older versions, even if you avoid using the new features.
+Provided are debs and rpms of the library itself and matching development packages.  Only 64 bit packages are available (but 32bit should be possible). Most current Linux distributions usually have a reasonably current version of these libraries that will work fine with Lazarus 2.2.0, if you can use those, you should do so. 
 
-Older distributions, or distributions built on an older base such as **Ubuntu 18.04** and **Mageia 7.1** need newer libraries to work with current **Release** Lazarus code such as Lazarus 2.0.6 through to Lazarus 2.0.12 (at time of writing). 
+If you are using older distributions, or distributions built on an older base such as **Ubuntu 18.04** and **Mageia 7.1** you need these newer libQt5Pas libraries to work with current **Release** Lazarus code such as Lazarus 2.0.6 through to Lazarus 2.2.0 (at time of writing). 
   
-Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work with Lazarus Qt5 even with the addition of these libraries. Their Qt5 is too old.
+Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work with Lazarus Qt5 even with the addition of these libraries. Their Qt5 is too old. 
 
 
