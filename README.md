@@ -21,8 +21,9 @@ The current release available here is 1.2.10 (Feb 2022) and that replaces the pr
 
 
 * The version of the package distributing this package is the second and third parts of the library version, that was initially **2.8**
-* The correct name of the installed library on a Linux (and similar) system was initially  libqt5pas**.so.1.2.8** with a symlink to, at least libqt5pas.so.1
-* To make life easier for end users, please comply with these conventions.
+* The correct name of the installed library on a Linux (and similar) system was initially  libqt5pas.so.1.2.8 with a symlink to, at least libqt5pas.so.1
+* This library is called libQt5Pas.so.1.2.10 and has a symlink to libQt5Pas.so.1 built into the packaging. BUT Zeljko's code makes two more symlinks (libQt5Pas.so and libQt5Pas.so.1.2) and I will update these packages to comply as soon as I can. In the mean time, I believe the extra two symlinks are probably not required but are clearly a good idea.
+
 
 ### Prebuild Packages
 Provided are debs and rpms of the library itself and matching development packages.  Only 64 bit packages are available (but 32bit should be possible). Most current Linux distributions usually have a reasonably current version of these libraries that will work fine with Lazarus 2.2.0, if you can use those, you should do so. 
