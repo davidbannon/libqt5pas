@@ -1,3 +1,9 @@
+libqt5pas (1.2.9) unstable; urgency=medium
+
+  * TLazAccessibleObject accessinility functionality for Qt5 widgetsets
+
+ -- David Bannon <tomboy-ng@bannons.id.au>  Tue, 06 Apr 2021 18:29:02 +1100
+
 libqt5pas (1.2.8) unstable; urgency=medium
 
   * Calling this version 1.2.8

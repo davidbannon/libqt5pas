@@ -1,10 +1,12 @@
 **Unofficial libqt5pas**
 
+**Please Note : you probably don't need these files** The new things that changed between 1.2.8 and 1.2.9 have been removed from Lazarus because of a couple of technical issues. So, you should safely use either 1.2.8 or 1.2.9 with no problems. I hope. https://forum.lazarus.freepascal.org/index.php/topic,54010.0.html
+
 Download packaged libraries from https://github.com/davidbannon/libqt5pas/releases/latest
 
 libqt5pas is an interface between Lazarus and the Qt5 libraries.  Not all Qt5 functions are available, only those necessary for Lazarus functionality. See https://wiki.freepascal.org/Qt5_Interface
 
-This is an unofficial copy of the libqt5pas code from the Lazarus Trunk. It is personally (and only personally) recommended as the right version of libqt5pas to use at most times.
+This is an unofficial copy of the libqt5pas code from the Lazarus Trunk. It is personally (and only personally) recommended as the right version of libqt5pas to use if the version in your Linux Distribution Repo does not support Qt5 with Lazarus.
 
 The code here will never be ahead of that in the Lazarus trunk but will track it, superficially tested, at least at each release of Lazarus.
 
@@ -14,18 +16,19 @@ Bug reports relating to this repository's packaging or currency should be report
 
 
 ### Names and Numbers
-Note : Its suggested that the next 'release' be called 1.3.206, reflecting its relationship with Lazarus 2.0.6.  That will achieve our aim of having a version number greater than all the various existing releases based on old code.  Please consider commenting on this either via an 'issue' here or posting to https://forum.lazarus.freepascal.org/index.php/topic,48889.msg353900.html.  If I get some indication that others think this is a good approach, I'll contact the various Linux distributions.
 
-* The version number of the library here is initially **1.2.8**. Upon release of version 3.0.0 of Lazarus for example, this library will be labelled version 1.3.0.
-* The name of a package distributing this library is **libqt5pas1**
-*  The version of the package distributing this package is second and third parts of the library version, that is initially **2.8**
-* The correct name of the installed library on a Linux (and similar) system is initially  libqt5pas**.so.1.2.8** with a symlink to, at least libqt5pas.so.1
+It appears that Zelijko is now incrementing version numbers. The current release available here is 1.2.9 (April 2021) and that replaces the previous release, here, of 1.2.8 (March 2020).
+
+
+*  The version of the package distributing this package is the second and third parts of the library version, that was initially **2.8**
+* The correct name of the installed library on a Linux (and similar) system was initially  libqt5pas**.so.1.2.8** with a symlink to, at least libqt5pas.so.1
 * To make life easier for end users, please comply with these conventions.
 
 ### Prebuild Packages
-Provided are debs and rpms of the library itself and matching development packages.  Only 64 bit packages are available. Most current Linux distributions have a reasonably current version of these libraries and if you can use those, you should do so.
+Provided are debs and rpms of the library itself and matching development packages.  Only 64 bit packages are available. Most current Linux distributions usually have a reasonably current version of these libraries and if you can use those, you should do so. However, at present, few will have 1.2.9 and, unexpectedly, trunk Lazarus code (April 2021) will not work with older versions, even if you avoid using the new features.
 
-However, older distributions, or distributions built on an older base such as **Ubuntu 18.04** and **Mageia 7.1** need newer libraries to work with current Lazarus code.  
+Older distributions, or distributions built on an older base such as **Ubuntu 18.04** and **Mageia 7.1** need newer libraries to work with current **Release** Lazarus code such as Lazarus 2.0.6 through to Lazarus 2.0.12 (at time of writing). 
+  
+Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work with Lazarus Qt5 even with the addition of these libraries. Their Qt5 is too old.
 
-Newer distributions may require the newer libraries if they run a Lazarus application that depends on recent bug fixes or additions that their distribution have not yet picked up.
 
