@@ -11,7 +11,7 @@
 
 unit qt5;
 
-{ Version : 2.6Beta , no, 2.8 for clarity }
+{ Version : 2.6Beta }
 
 {$mode objfpc}{$H+}
 
