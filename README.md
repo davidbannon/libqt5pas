@@ -21,8 +21,8 @@ The current release available here is 1.2.10 (Feb 2022) and that replaces the pr
 
 
 * The version of the package distributing this package is the second and third parts of the library version, that was initially **2.8**
-* The correct file name of the installed library on a deb based Linux (and similar) system was initially  libqt5pas.so.1.2.8 with a symlink to, at least libqt5pas.so.1
-* In the RPM world, the '1' appears to be merged into the library name, so the library is libqt5pas1.
+* The correct file name of the installed library on a based Linux (and similar) system was initially  libqt5pas.so.1.2.8 with a symlink to, at least libqt5pas.so.1
+* In the packaging process, the '1' appears to be merged into the name sometimes. Not in the dev version however.
 * This library is called libQt5Pas.so.1.2.10 and has a symlink to libQt5Pas.so.1 built into the packaging. BUT Zeljko's code makes two more symlinks (libQt5Pas.so and libQt5Pas.so.1.2) and I will update these packages to comply as soon as I can. In the mean time, I believe the extra two symlinks are probably not required but are clearly a good idea.
 
 
