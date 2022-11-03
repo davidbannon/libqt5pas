@@ -10,12 +10,17 @@
 #	* At run time, Lazarus QT apps appear to try and open libQt5Pas.so.1
 
 #	David Bannon, LGPL with exception, see associated COPYING.TXT 
-
+#	package names look like this -
+#	libqt5pas1_2.10-0_amd64.deb  libqt5pas1_2.10-0_arm64.deb 
+#	libqt5pas-dev_2.10-0_amd64.deb libqt5pas-dev_2.10-0_arm64.deb 
 
 VERSION=`cat ../version`
 MAJORVER=`echo $VERSION | awk -F"." '{ printf $1 }'`		# for 1.2.8,  MAJORVER=1
 MINORVER=`echo $VERSION | awk -F"." '{ printf $2"."$3 }'`	# for 1.2.8,  MINORVER=2.8
-PRODUCT="libqt5pas"					# note lib has upper case letters
+PRODUCT="libqt5pas"	# note lib has upper case letters
+
+ARCH=amd64		# we will set further down. amd64  arm64    and possibly armhf, note: arm64 aka aarch64 ? 
+DIR_ARCH=`uname -m`	# Might return, eg aarch64, x86_64 ...
 
 VER1=`echo $VERSION | awk -F"." '{ printf $1 }'`		# ie "2"
 VER2=`echo $VERSION | awk -F"." '{ printf $1"."$2 }'`		# ie "2.8"
@@ -34,7 +39,7 @@ function WriteControl () {
 		# echo "Source: CHANGE-ME" >> BUILD/DEBIAN/control
 	fi
 	echo "Version: $MINORVER" >> BUILD/DEBIAN/control
-	echo "Architecture: amd64" >> BUILD/DEBIAN/control
+	echo "Architecture: ""$ARCH" >> BUILD/DEBIAN/control
 	echo "Maintainer: $WHOAMI" >> BUILD/DEBIAN/control
 	echo "Original-Maintainer: Pascal Packaging Team <pkg-pascal-devel@lists.alioth.debian.org>" >> BUILD/DEBIAN/control
 	echo "Priority: optional" >> BUILD/DEBIAN/control
@@ -62,14 +67,14 @@ function DebianPackage () {
 	# We build a debian tree in BUILD and call dpkg-deb -b 
 	rm -rf BUILD
 	mkdir -p BUILD/DEBIAN
-	mkdir -p BUILD/usr/lib/x86_64-linux-gnu
+	mkdir -p BUILD/usr/lib/"$DIR_ARCH"-linux-gnu
 	mkdir -p BUILD/usr/share/doc/"$PRODUCT$MAJORVER"
 	WriteControl
-	cp ../libQt5Pas.so."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION"
-	ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MAJORVER"
+	cp ../libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION"
+	ln -s -r BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$MAJORVER"
 	#ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MINORVER"
 	#ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MAJORVER"."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VER2"
-	chmod 0644 BUILD/usr/lib/x86_64-linux-gnu/*
+	chmod 0644 BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/*
 	
     	cp copyright "BUILD/usr/share/doc/$PRODUCT$MAJORVER/copyright"
 	
@@ -78,23 +83,23 @@ function DebianPackage () {
 	gzip -knc --best changelog.libqt5pas >> BUILD/usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz
 	# ------ Make the md5sum file -----------
 	cd BUILD
-	md5sum  usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION" > DEBIAN/md5sums
+	md5sum  usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION" > DEBIAN/md5sums
 	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/copyright >> DEBIAN/md5sums
 	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz >> DEBIAN/md5sums
 	cd ..
 	chmod -R g-w BUILD
-  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT$MAJORVER"_"$MINORVER"-0_amd64.deb
+  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT$MAJORVER"_"$MINORVER"-0_"$ARCH".deb
 }
 
 function DebianPackageDev () {
 	# We build a debian tree in BUILD and call dpkg-deb -b 
 	rm -rf BUILD
 	mkdir -p BUILD/DEBIAN
-	mkdir -p BUILD/usr/lib/x86_64-linux-gnu
+	mkdir -p BUILD/usr/lib/"$DIR_ARCH"-linux-gnu
 	mkdir -p BUILD/usr/share/pascal/qt5
 	mkdir -p BUILD/usr/share/doc/"$PRODUCT"-dev
 	WriteControl DEV
-	ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so
+	ln -s -r BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so
 	cp ../qt5.pas BUILD/usr/share/pascal/qt5/.
 	chmod 0644 BUILD/usr/share/pascal/qt5/*
     	cp copyright BUILD/usr/share/doc/"$PRODUCT-dev"/copyright
@@ -107,8 +112,16 @@ function DebianPackageDev () {
 	md5sum  usr/share/doc/"$PRODUCT"-dev/changelog.gz >> DEBIAN/md5sums
 	cd ..
 	chmod -R g-w BUILD
-  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT"-dev_"$MINORVER"-0_amd64.deb
+  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT"-dev_"$MINORVER"-0_"$ARCH".deb
 }
+
+if [ "$DIR_ARCH" == "aarch64" ]; then
+	ARCH="arm64"
+fi
+
+echo "Building for $ARCH $DIR_ARCH - hope thats OK"
+
+strip ../libQt5Pas.so."$VERSION"
 
 DebianPackage 
 DebianPackageDev
