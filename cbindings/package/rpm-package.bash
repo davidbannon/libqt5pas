@@ -33,10 +33,14 @@ function MakeRPM () {
 	# chown $SUDO_USER *.rpm
 }
 
-# this is what mount -m reports, intel and arm64 are ok
-if [ "$ARCH" == "armv7l" ]; then
+# this is what mount -m reports, I think that x86_64 is OK, but untested.
+if [ "$ARCH" == "armv7l" ]; then	# RasPi 32bit OS (32 or 64 hardware)
 	ARCH="armhf"
 fi
+if [ "$ARCH" == "aarch64" ]; then	# eg RasPi 64bit
+	ARCH="arm64"
+fi
+
 MakeRPM "$MAJORVER" "$MINORVER"        
 MakeRPM "-dev" "$MINORVER"          
 
