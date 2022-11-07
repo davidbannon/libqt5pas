@@ -11,16 +11,23 @@
 
 #	David Bannon, LGPL with exception, see associated COPYING.TXT 
 #	package names look like this -
-#	libqt5pas1_2.10-0_amd64.deb  libqt5pas1_2.10-0_arm64.deb 
-#	libqt5pas-dev_2.10-0_amd64.deb libqt5pas-dev_2.10-0_arm64.deb 
+
+# intel	libqt5pas1_2.10-0_amd64.deb  		dest = /usr/lib/x86_64-linux-gnu
+#	libqt5pas-dev_2.10-0_arm64.deb 
+
+# arm64	libqt5pas-dev_2.10-0_amd64.deb 		dest = 
+# 	libqt5pas1_2.10-0_arm64.deb 
+
+# arm32	libqt5pas1_2.10-0_armhf.deb 		dest = /usr/lib/arm-linux-gnueabihf
+#	libqt5pas-dev_2.10-0_armhf.deb    
 
 VERSION=`cat ../version`
 MAJORVER=`echo $VERSION | awk -F"." '{ printf $1 }'`		# for 1.2.8,  MAJORVER=1
 MINORVER=`echo $VERSION | awk -F"." '{ printf $2"."$3 }'`	# for 1.2.8,  MINORVER=2.8
 PRODUCT="libqt5pas"	# note lib has upper case letters
 
-ARCH=amd64		# we will set further down. amd64  arm64    and possibly armhf, note: arm64 aka aarch64 ? 
-DIR_ARCH=`uname -m`	# Might return, eg aarch64, x86_64 ...
+ARCH=unknown		# we will set further down. amd64  arm64 and armhf, note: arm64 aka aarch64 ? 
+DIR_ARCH=`uname -m`	# Might return, eg aarch64, x86_64. Raspi running 32bit returns armv7l - possibly RasPi version specific ?
 
 VER1=`echo $VERSION | awk -F"." '{ printf $1 }'`		# ie "2"
 VER2=`echo $VERSION | awk -F"." '{ printf $1"."$2 }'`		# ie "2.8"
@@ -45,21 +52,23 @@ function WriteControl () {
 	echo "Priority: optional" >> BUILD/DEBIAN/control
 	echo "Multi-Arch: same" >> BUILD/DEBIAN/control
 	echo "Homepage: https://wiki.freepascal.org/Qt5_Interface" >> BUILD/DEBIAN/control
-	# ----- I am not sure if the following is a good idea or not, hmm.....
+	# ----- I am not sure if the following is a good idea or not, no, better without, as is replaces old ver, might get new version next
 	# echo "Replaces: libqt5pas1" >> BUILD/DEBIAN/control
 	if [ "$1" = "DEV" ]; then
 		echo "Installed-Size: 1445" >> BUILD/DEBIAN/control
 		echo "Depends: $PRODUCT$MAJORVER (>= $MINORVER)" >> BUILD/DEBIAN/control
 		echo "Section: libdevel" >> BUILD/DEBIAN/control
 		echo "Description: Development files for Qt5Pas" >> BUILD/DEBIAN/control
-		echo " Provides interface for Pascal applications to Qt5 C++ libs" >> BUILD/DEBIAN/control
 	else
 		echo "Installed-Size: 3314" >> BUILD/DEBIAN/control
 		echo "Depends: libc6 (>= 2.14), libgcc1 (>= 1:3.0), libqt5core5a (>= 5.7.0), libqt5gui5 (>= 5.6.0~beta) | libqt5gui5-gles (>= 5.6.0~beta), libqt5network5 (>= 5.6.0~beta), libqt5printsupport5 (>= 5.2.0), libqt5widgets5 (>= 5.6.0~beta), libqt5x11extras5 (>= 5.6.0), libstdc++6 (>= 5)" >> BUILD/DEBIAN/control
 		echo "Section: libs" >> BUILD/DEBIAN/control
 		echo "Description: Qt5 interface bindings for Pascal" >> BUILD/DEBIAN/control
-		echo " Provides interface for Pascal applications" >> BUILD/DEBIAN/control
 	fi
+	echo " Provides interface for Pascal applications, is only" >> BUILD/DEBIAN/control
+	echo " a temp hack until distro versions catch up. It is" >> BUILD/DEBIAN/control
+	echo " only really useful, at present, to people using"   >> BUILD/DEBIAN/control
+	echo " Lazarus main, current release versions do not need it." >> BUILD/DEBIAN/control
 }
 
 
@@ -67,14 +76,14 @@ function DebianPackage () {
 	# We build a debian tree in BUILD and call dpkg-deb -b 
 	rm -rf BUILD
 	mkdir -p BUILD/DEBIAN
-	mkdir -p BUILD/usr/lib/"$DIR_ARCH"-linux-gnu
+	mkdir -p BUILD/usr/lib/"$DIR_ARCH"
 	mkdir -p BUILD/usr/share/doc/"$PRODUCT$MAJORVER"
 	WriteControl
-	cp ../libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION"
-	ln -s -r BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$MAJORVER"
+	cp ../libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION"
+	ln -s -r BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$MAJORVER"
 	#ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MINORVER"
 	#ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MAJORVER"."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VER2"
-	chmod 0644 BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/*
+	chmod 0644 BUILD/usr/lib/"$DIR_ARCH"/*
 	
     	cp copyright "BUILD/usr/share/doc/$PRODUCT$MAJORVER/copyright"
 	
@@ -83,7 +92,7 @@ function DebianPackage () {
 	gzip -knc --best changelog.libqt5pas >> BUILD/usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz
 	# ------ Make the md5sum file -----------
 	cd BUILD
-	md5sum  usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION" > DEBIAN/md5sums
+	md5sum  usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION" > DEBIAN/md5sums
 	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/copyright >> DEBIAN/md5sums
 	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz >> DEBIAN/md5sums
 	cd ..
@@ -95,11 +104,11 @@ function DebianPackageDev () {
 	# We build a debian tree in BUILD and call dpkg-deb -b 
 	rm -rf BUILD
 	mkdir -p BUILD/DEBIAN
-	mkdir -p BUILD/usr/lib/"$DIR_ARCH"-linux-gnu
+	mkdir -p BUILD/usr/lib/"$DIR_ARCH"
 	mkdir -p BUILD/usr/share/pascal/qt5
 	mkdir -p BUILD/usr/share/doc/"$PRODUCT"-dev
 	WriteControl DEV
-	ln -s -r BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"-linux-gnu/libQt5Pas.so
+	ln -s -r BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so
 	cp ../qt5.pas BUILD/usr/share/pascal/qt5/.
 	chmod 0644 BUILD/usr/share/pascal/qt5/*
     	cp copyright BUILD/usr/share/doc/"$PRODUCT-dev"/copyright
@@ -116,7 +125,20 @@ function DebianPackageDev () {
 }
 
 if [ "$DIR_ARCH" == "aarch64" ]; then
-	ARCH="arm64"
+	ARCH="arm64"			# Name used in deb file name
+	DIR_ARCH="aarch64-linux-gnu"	# Dir where the libraries end up
+fi
+if [ "$DIR_ARCH" == "armv7l" ]; then
+	ARCH="armhf"
+	DIR_ARCH="arm-linux-gnueabihf"
+fi
+if [ "$DIR_ARCH" == "x86_64" ]; then
+	ARCH="amd64"
+	DIR_ARCH="x86_64-linux-gnu"
+fi
+if [ "$ARCH" == "unknown" ]; then
+	echo "ERROR cannot id your arch $DIR_ARCH, exiting..."
+	exit
 fi
 
 echo "Building for $ARCH $DIR_ARCH - hope thats OK"
