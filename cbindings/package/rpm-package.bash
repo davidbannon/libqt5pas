@@ -1,46 +1,118 @@
 #!/usr/bin/bash
+set -e
 
-# Note : must be run as root or fakeroot 
+#  Copyright (C) 2022 David Bannon
+#
+#    License:
+#    This code is licensed under BSD 3-Clause Clear License, see 
+#    https://spdx.org/licenses/BSD-3-Clause-Clear.html
 
-# Script to build rpms from the pre existing libqt5pas libraries
-# A straight call to Alien is not suitable because it upsets at least
-# fedora when it tells the OS to make directories that already exist ??
+# A short script to build RPM Packages for the LibQt5Pas Library for Lazarus.
+# Requires the prebuilt library (one directory up) and the commands rpm and rmplint
+# Should work on x86_64, armhf, aarch64
 
-# David Bannon, 2020/03/21, LGPL with exception, see associated COPYING.TXT
+PRODUCT="libqt5pas"			# used in package name
+LIBNAME=libQt5Pas			# used in actual binary file
 
-VERSION=`cat ../version`
-ARCH=`uname -m`
+M_ARCH=`uname -m`	# Might return, eg aarch64, x86_64. Raspi running 32bit returns armv7l - possibly RasPi version specific ?
+CURRENT=`pwd`
+PACKVER='1'		# should start at '1', rev if you re-package same binary after release
 
-MAJORVER=`echo $VERSION | awk -F"." '{ printf $1 }'`		# for 1.2.8,  MAJORVER=1
-MINORVER=`echo $VERSION | awk -F"." '{ printf $2"."$3 }'`	# for 1.2.8,  MINORVER=2.8
-PRODUCT="libqt5pas"					# note lib has upper case letters
 
-CURRENT="$PWD"
+cd ..			# we expect to find binary one dir above
+LIBFILE=$(find . -maxdepth 1 ! -type l  -name "$LIBNAME""*")
+cd $CURRENT
+MAJORVER=`echo $LIBFILE | awk -F"." '{ printf $4 }'`	# for 6.2.0, = 7
+MINORVER=`echo $LIBFILE | awk -F"." '{ printf $5 }'`	#	     = 2
+EXTRAVER=`echo $LIBFILE | awk -F"." '{ printf $6 }'`	#	     = 0
+VERSION="$MAJORVER"."$MINORVER"."$EXTRAVER"
+
+FULLLIBNAME="$LIBNAME".so."$VERSION"
+
+# Depends on -
+# $VERSION  set above
+# $PACKVER  manually set above
+# $PRODUCT  manually set above, eg libqt6pas6 or libqt5pas (lowercase, used in package name)
+# $ARCH     done in SetUpArch
+# $M_ARCH   set above.
+# $RDIR_ARCH done in SetUpArch
+# $CURRENT  done above
+# $FULLLIBNAME done above
+# Assumes changelog is up to date
+# Both Specfiles are available
+
+# floowing is unchanged copy from libqt6 version, except for pas and spec file names
 
 function MakeRPM () {
-	echo "============ Processing $PRODUCT$1 ==============="
-	RDIR="$PRODUCT$1-$MINORVER"
-	rm -Rf "$RDIR"
-	alien -r -g -v "$PRODUCT$1_$2-0_""$ARCH"".deb"
-	# Alien inserts requests the package create /, /usr/lib and /usr/bin and
-	# the os does not apprieciate that, not surprisingly.
-	sed -i 's#%dir "/"##' "$RDIR"/"$RDIR"-2.spec
-	sed -i 's#%dir "/usr/bin/"##' "$RDIR"/"$RDIR"-2.spec
-	sed -i 's#%dir "/usr/lib/"##' "$RDIR"/"$RDIR"-2.spec
+	# PARTVER="$MAJORVER"."$MINORVER"."$EXTRAVER"
+	FULLVER="$VERSION"-"$PACKVER"
+    RDIR="$PRODUCT"-"$VERSION"
+    echo "=== Making RPM from $PRODUCT"."$FULLVER"_"$ARCH.deb in "["$RDIR"]" ==="
+    rm -Rf "$RDIR"
+	mkdir -p "$RDIR"/usr/"$RDIR_ARCH"
+	chmod 744 "$RDIR"/usr/"$RDIR_ARCH"
+	# mkdir -p "$RDIR"/usr/lib
+	if [ "$1" = "devel" ]; then		# DEV Package
+		echo "========= RPM Devel Package ========"
+		mkdir -p "$RDIR"/usr/share/doc/"$PRODUCT"-devel
+		chmod 755 "$RDIR"/usr/share/doc/"$PRODUCT"-devel
+    	cp copyright "$RDIR"/usr/share/doc/"$PRODUCT"-devel/copyright
+		gzip -knc --best changelog.libqt5pas >> "$RDIR"/usr/share/doc/"$PRODUCT"-devel/changelog.gz
+		ln -s "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so
+    	cp ../qt5.pas "$RDIR/usr/share/doc/"$PRODUCT"-devel/."
+		cp libqt5pas-devel.spec "$RDIR"/"$PRODUCT".spec
+		sed -i "s/INSERT_DEPEND/${PRODUCT} = ${VERSION}, qt5opengl5-dev, libqt5x11extras5-dev/" "$RDIR"/"$PRODUCT".spec
+		sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
+	else	
+		echo "==== RPM Lib Package FULLLIBNAME $FULLLIBNAME ==="
+		mkdir -p "$RDIR"/usr/share/doc/"$PRODUCT"
+		chmod 755 "$RDIR"/usr/share/doc/"$PRODUCT"
+    	cp copyright "$RDIR/usr/share/doc/"$PRODUCT"/copyright"
+		gzip -knc --best changelog.libqt5pas >> "$RDIR"/usr/share/doc/"$PRODUCT"/changelog.gz
+		cp ../"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/.
+		chmod 755 "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME"
+		ln -s -r "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so."$MAJORVER"."$MINORVER"
+		ln -s -r "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so."$MAJORVER"
+		cp libqt5pas.spec "$RDIR"/"$PRODUCT".spec
+		sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
+	fi
+	sed -i "s/^Version:*./Version: ${VERSION}/" "$RDIR"/"$PRODUCT".spec
+	sed -i "s/^Release:*./Release: ${PACKVER}/" "$RDIR"/"$PRODUCT".spec
+	sed -i "s/INSERT_FULL_VER/Version: ${FULLVER}/" "$RDIR"/"$PRODUCT".spec
+	cp "$RDIR"/"$PRODUCT".spec "$PRODUCT""$1".spec-just-used
 	cd "$RDIR"
-	rpmbuild --target "$ARCH" --buildroot "$CURRENT/$RDIR" -bb "$RDIR"-2.spec
-	cd ..
-	# chown $SUDO_USER *.rpm
+	fakeroot rpmbuild --target "$M_ARCH" --buildroot "$CURRENT"/"$RDIR" -bb "$PRODUCT".spec
+	cd .. 
 }
 
-# this is what mount -m reports, I think that x86_64 is OK, but untested.
-if [ "$ARCH" == "armv7l" ]; then	# RasPi 32bit OS (32 or 64 hardware)
-	ARCH="armhf"
-fi
-if [ "$ARCH" == "aarch64" ]; then	# eg RasPi 64bit
-	ARCH="arm64"
-fi
+# following code (but not function) is unchanged copy from libqt6 version
 
-MakeRPM "$MAJORVER" "$MINORVER"        
-MakeRPM "-dev" "$MINORVER"          
+function SetUpArch () {
+	if [ "$M_ARCH" == "aarch64" ]; then
+		ARCH="arm64"			# Name used in deb file name
+		DIR_ARCH="aarch64-linux-gnu"	# Dir where the libraries end up
+		RDIR_ARCH="lib64"		# Where RPMs put the library         TODO !!!
+	fi
+	if [ "$M_ARCH" == "armv7l" ]; then
+		ARCH="armhf"
+		DIR_ARCH="arm-linux-gnueabihf"
+		RDIR_ARCH="lib"		# Where RPMs put the library         TODO !!!
+	fi
+	if [ "$M_ARCH" == "x86_64" ]; then
+		ARCH="amd64"
+		DIR_ARCH="x86_64-linux-gnu"
+		RDIR_ARCH="lib64"		# Where RPMs put the library 
+	fi
+	if [ "$ARCH" == "unknown" ]; then
+		echo "ERROR cannot id your arch $DIR_ARCH, exiting..."
+		exit
+	fi
+}
+
+
+SetUpArch
+MakeRPM   
+MakeRPM "devel" 
+
+
 

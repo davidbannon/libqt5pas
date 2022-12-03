@@ -150,7 +150,7 @@ DebianPackageDev
 
 ls -ltr
 
-echo " === OK, now make the rpms with   fakeroot bash ./rpm-package.bash   <enter> ==="
+echo " === OK, now make the rpms with   bash ./rpm-package.bash   <enter> ==="
 
 
 
