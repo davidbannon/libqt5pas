@@ -1,0 +1,39 @@
+
+A library that connects Lazarus to Qt5 on Linux.
+
+2022-11-08
+
+This library is built using the c++ source code from the Lazarus interface to
+Qt5 in Lazarus Main (aka, master, trunk). Its needed (at present) when you are
+compiling using Lazarus Main and Qt5 (with Linux). Its useful if you use
+(eg) Lazarus 2.2.4 or earlier and, probably a 2.2.6 if it is released.
+
+Its possible that a Lazarus 2.4 release series will include the new additions
+to the Qt5 inteface and will, then, require this version of libQt5Pas1 until
+the distros, through their normal release cycle, catch up.
+
+The same libaries are also available in debs and rpms and that is recommended 
+if you can use them. If not, read on.
+
+This tarball contains both the main library and its -dev counterpart. You only
+need the -dev if compiling code. The place where you put the libraries depends
+on your linux distro and the cpu in use. Its assumed that if you are manually
+installing you fully understnd the process and its implications. If not please
+seek advice. Generally, sometimes, the libraries need be in -
+
+x86_64  - /usr/lib/x86_64-linux-gnu/
+aarch64 - /usr/lib/aarch64-linux-gnu/
+armhf   - /usr/lib/arm-linux-gnueabihf/
+
+But many distributions use different dir structures, if the above dir does not
+already exist, you almost certainly need to do some more research.
+
+As well as the library it self, you need to create a symlink to it called
+libQt5Pas.so.1 in the same directory. At present, that apears to be the file
+that Lazarus looks for. A good strategy, if possible, is to install your
+distro's version, add this library and alter the symlink.
+
+These libraries are build and packaged by David Bannon but no responsability
+for the content (or even naming) can be accepted. 
+
+Thanks to Alexey Torgashin for his help.

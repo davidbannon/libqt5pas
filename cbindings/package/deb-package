@@ -21,10 +21,12 @@
 # arm32	libqt5pas1_2.10-0_armhf.deb 		dest = /usr/lib/arm-linux-gnueabihf
 #	libqt5pas-dev_2.10-0_armhf.deb    
 
+PACKVER="1"
 VERSION=`cat ../version`
 MAJORVER=`echo $VERSION | awk -F"." '{ printf $1 }'`		# for 1.2.8,  MAJORVER=1
 MINORVER=`echo $VERSION | awk -F"." '{ printf $2"."$3 }'`	# for 1.2.8,  MINORVER=2.8
 PRODUCT="libqt5pas"	# note lib has upper case letters
+
 
 ARCH=unknown		# we will set further down. amd64  arm64 and armhf, note: arm64 aka aarch64 ? 
 DIR_ARCH=`uname -m`	# Might return, eg aarch64, x86_64. Raspi running 32bit returns armv7l - possibly RasPi version specific ?
@@ -95,7 +97,7 @@ function DebianPackage () {
 	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz >> DEBIAN/md5sums
 	cd ..
 	chmod -R g-w BUILD
-  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT$MAJORVER"_"$MINORVER"-0_"$ARCH".deb
+  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT$MAJORVER"_"$MINORVER"-"$PACKVER"_"$ARCH".deb
 }
 
 function DebianPackageDev () {
@@ -119,7 +121,16 @@ function DebianPackageDev () {
 	md5sum  usr/share/doc/"$PRODUCT"-dev/changelog.gz >> DEBIAN/md5sums
 	cd ..
 	chmod -R g-w BUILD
-  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT"-dev_"$MINORVER"-0_"$ARCH".deb
+  	fakeroot dpkg-deb -b BUILD/. "$PRODUCT"-dev_"$MINORVER"-"$PACKVER"_"$ARCH".deb
+}
+
+function MakeTar () {
+	TARNAME=libqt5pas_"$MAJORVER"."$MINORVER"-"$PACKVER"_"$ARCH"
+	rm -Rf "$TARNAME"
+	mkdir "$TARNAME"
+	cp targz.readme "$TARNAME"/.
+	cp ../libQt5Pas.so."$VERSION" "$TARNAME"/.
+	tar czf "$TARNAME".tar.gz "$TARNAME"
 }
 
 if [ "$DIR_ARCH" == "aarch64" ]; then
@@ -145,10 +156,11 @@ echo "Building for $ARCH $DIR_ARCH - hope thats OK"
 
 DebianPackage 
 DebianPackageDev
+MakeTar
 
 lintian -IiE *.deb
 
-ls -ltr *.deb
+ls -ltr *.deb *.gz
 
 
 
