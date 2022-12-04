@@ -48,15 +48,12 @@ function WriteControl () {
 	echo "Version: $MINORVER" >> BUILD/DEBIAN/control
 	echo "Architecture: ""$ARCH" >> BUILD/DEBIAN/control
 	echo "Maintainer: $WHOAMI" >> BUILD/DEBIAN/control
-	echo "Original-Maintainer: Pascal Packaging Team <pkg-pascal-devel@lists.alioth.debian.org>" >> BUILD/DEBIAN/control
 	echo "Priority: optional" >> BUILD/DEBIAN/control
 	echo "Multi-Arch: same" >> BUILD/DEBIAN/control
 	echo "Homepage: https://wiki.freepascal.org/Qt5_Interface" >> BUILD/DEBIAN/control
-	# ----- I am not sure if the following is a good idea or not, no, better without, as is replaces old ver, might get new version next
-	# echo "Replaces: libqt5pas1" >> BUILD/DEBIAN/control
 	if [ "$1" = "DEV" ]; then
 		echo "Installed-Size: 1445" >> BUILD/DEBIAN/control
-		echo "Depends: $PRODUCT$MAJORVER (>= $MINORVER)" >> BUILD/DEBIAN/control
+		echo "Depends: $PRODUCT$MAJORVER (>= $MINORVER), libqt5opengl5-dev, libqt5x11extras5-dev" >> BUILD/DEBIAN/control
 		echo "Section: libdevel" >> BUILD/DEBIAN/control
 		echo "Description: Development files for Qt5Pas" >> BUILD/DEBIAN/control
 	else
@@ -80,6 +77,7 @@ function DebianPackage () {
 	mkdir -p BUILD/usr/share/doc/"$PRODUCT$MAJORVER"
 	WriteControl
 	cp ../libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION"
+	strip --remove-section=.comment BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION"
 	ln -s -r BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$VERSION" BUILD/usr/lib/"$DIR_ARCH"/libQt5Pas.so."$MAJORVER"
 	#ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MINORVER"
 	#ln -s -r BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$MAJORVER"."$VERSION" BUILD/usr/lib/x86_64-linux-gnu/libQt5Pas.so."$VER2"
@@ -143,14 +141,15 @@ fi
 
 echo "Building for $ARCH $DIR_ARCH - hope thats OK"
 
-strip ../libQt5Pas.so."$VERSION"
+# strip ../libQt5Pas.so."$VERSION"
 
 DebianPackage 
 DebianPackageDev
 
-ls -ltr
+lintian -IiE *.deb
 
-echo " === OK, now make the rpms with   bash ./rpm-package.bash   <enter> ==="
+ls -ltr *.deb
+
 
 
 

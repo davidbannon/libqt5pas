@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 set -e
 
 #  Copyright (C) 2022 David Bannon
@@ -41,7 +41,7 @@ FULLLIBNAME="$LIBNAME".so."$VERSION"
 # Assumes changelog is up to date
 # Both Specfiles are available
 
-# floowing is unchanged copy from libqt6 version, except for pas and spec file names
+# following is unchanged copy from libqt6 version, except for pas and spec file names
 
 function MakeRPM () {
 	# PARTVER="$MAJORVER"."$MINORVER"."$EXTRAVER"
@@ -61,7 +61,7 @@ function MakeRPM () {
 		ln -s "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so
     	cp ../qt5.pas "$RDIR/usr/share/doc/"$PRODUCT"-devel/."
 		cp libqt5pas-devel.spec "$RDIR"/"$PRODUCT".spec
-		sed -i "s/INSERT_DEPEND/${PRODUCT} = ${VERSION}, qt5opengl5-dev, libqt5x11extras5-dev/" "$RDIR"/"$PRODUCT".spec
+		sed -i "s/INSERT_DEPEND/${PRODUCT} = ${VERSION}, qt5-qtbase-devel/" "$RDIR"/"$PRODUCT".spec
 		sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
 	else	
 		echo "==== RPM Lib Package FULLLIBNAME $FULLLIBNAME ==="
@@ -75,6 +75,7 @@ function MakeRPM () {
 		ln -s -r "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so."$MAJORVER"
 		cp libqt5pas.spec "$RDIR"/"$PRODUCT".spec
 		sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
+		# rpmbuild seems to workout dependencies fine but does not specify a needed version
 	fi
 	sed -i "s/^Version:*./Version: ${VERSION}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/^Release:*./Release: ${PACKVER}/" "$RDIR"/"$PRODUCT".spec
@@ -114,5 +115,5 @@ SetUpArch
 MakeRPM   
 MakeRPM "devel" 
 
-
+rpmlint -i *.rpm
 
