@@ -1,6 +1,9 @@
 package.readme
 
-On a suitably setup machine -
+On a suitably setup machine, eg
+apt install devscripts rpm rpmlint 
+
+Pull down the code from gitlab,
 cd cbindings
 refresh source
 update version file
@@ -9,19 +12,23 @@ make <enter>
 (wait awhile)
 strip libQt5Pas.so.1.2.8
 cd package
-./deb-package
-sudo bash ./rpm-package
+bash ./deb-package
+bash ./rpm-package
 
 test
 
-back in the top level dir _
-git tag -a v1.2.8
-git push --tags
+Easy to let github tag the release, create the Release Page, assign an 
+appropriate tag and it will be created when Release is released.
+ 
+# back in the top level dir _
+# git tag -a v1.2.8
+# git push --tags
 
 In the github page, 'releases', 'draft new release'.
 Some text, add the generated packages, 'publish'.
 back in packages :
-rm *.deb *.rpm
-rm -Rf BUILD
-cd ..
+rm *.deb *.rpm *.gz
+Maybe clean up the working directories ...
+
+
 rm -Rf tmp
