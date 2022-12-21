@@ -10,7 +10,7 @@ on:
 
       
 env:
-  SOURCE: 'libQt6Pas_src'
+  SOURCE: 'libQtPas_src'
 
 jobs:
   build:
@@ -37,13 +37,14 @@ jobs:
 
 
     - name: Test if Qt updated
-      run: |
-        wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
-        grep VER_PAT Qt6Pas.pro >> qt6
-        grep VER_PAT ${{ env.SOURCE }}/cbindings/Qt5Pas.pro >> qt5
-        ls -l
-        diff qt5 qt6 >> diff.text
-        ls -l
+      run: ${{ env.SOURCE }}/cbindings/package/scripts/check4updates.bash         
+
+#        wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
+#        grep VER_PAT Qt6Pas.pro >> qt6
+#        grep VER_PAT ${{ env.SOURCE }}/cbindings/Qt5Pas.pro >> qt5
+#        ls -l
+#        diff qt5 qt6 >> diff.text
+#        ls -l
         # OK, thats silly but this is just a test, ok?
 
     - name: Upload the Build Artifact
@@ -51,5 +52,5 @@ jobs:
       with:
         name: libQt6Pas
         path: |
-          ${{ env.SOURCE }}/diff.text
+          ${{ env.SOURCE }}/result.text
 
