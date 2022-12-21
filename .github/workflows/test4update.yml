@@ -36,15 +36,14 @@ jobs:
         path: '${{ env.SOURCE }}'
 
 
-    - name: Install Qt on Linux
+    - name: Test if Qt updated
       run: |
         wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
-        ls -l
         grep VER_PAT Qt6Pas.pro >> qt6
-        ls -l
         grep VER_PAT ${{ env.SOURCE }}/cbindings/Qt5Pas.pro >> qt5
         ls -l
-        diff qt5 qt6 > diff.text
+        diff qt5 qt6 >> diff.text
+        ls -l
         # OK, thats silly but this is just a test, ok?
 
     - name: Upload the Build Artifact
