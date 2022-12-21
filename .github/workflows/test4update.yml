@@ -37,7 +37,6 @@ jobs:
 
 
     - name: Install Qt on Linux
-      if: contains( matrix.config.os, 'ubuntu')
       run: |
       	wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
         grep VER_PAT Qt6Pas.pro >> qt6
