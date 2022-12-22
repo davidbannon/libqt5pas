@@ -13,9 +13,11 @@ wget "$REMOTE_pro"
 REMOTEpat=`grep VER_PAT "$REMOTEfile"`
 LOCALpat=`grep VER_PAT "$LOCALFILE"`
 if [ "$REMOTEpat" == "$LOCALpat" ]; then
-    echo "no change" >> result.text
+    exit 0
 else
-    echo "$REMOTEpat"               # >> result.text
+	# this means we need do rasie issue
+	echo "$REMOTEpat" >> result.text
+    exit 1
 fi
 # cat result.text
 
