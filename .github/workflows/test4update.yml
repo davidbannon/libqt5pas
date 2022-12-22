@@ -47,7 +47,7 @@ jobs:
 #        ls -l
         # OK, thats silly but this is just a test, ok?
         
-    - Name: decide
+    - name: decide
       run: |
         if [[ ${{ steps.test_updated.outputs.update_status }} == "" ]]; then exit 0; else exit 1; fi
 #    - name: Upload the Build Artifact
