@@ -35,7 +35,6 @@ jobs:
       with:
         path: '${{ env.SOURCE }}'
 
-
     - name: Test if Qt updated
       run: |
          ${{ env.SOURCE }}/cbindings/package/scripts/check4update.bash         

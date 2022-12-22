@@ -8,5 +8,5 @@ if [ "$REMOTEqt" == "$LOCALqt" ]; then
 else
     echo "$REMOTEqt" >> result.text
 fi
-cat result.txt
+cat result.text
 
