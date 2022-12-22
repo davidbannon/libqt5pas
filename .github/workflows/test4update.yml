@@ -36,22 +36,25 @@ jobs:
         path: '${{ env.SOURCE }}'
 
     - name: Test if Qt updated
-      id: test_updated
+      id: test_updated     
       run: ${{ env.SOURCE }}/cbindings/package/scripts/check4update.bash         
-       
-#        wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
-#        grep VER_PAT Qt6Pas.pro >> qt6
-#        grep VER_PAT ${{ env.SOURCE }}/cbindings/Qt5Pas.pro >> qt5
-#        ls -l
-#        diff qt5 qt6 >> diff.text
-#        ls -l
-        # OK, thats silly but this is just a test, ok?
+#      run: |       
+
+      # This will, if the above script returned an error, assume we need to raise
+      # an issue because the versions no longer match
+    - uses: nashmaniac/create-issue-action@v1.1       
+      name: Create Issue Action 
+      if: ${{ failure() }}     
+      with:
+        title: Build Failed
+        token: ${{secrets.GITHUB_TOKEN}}
+    #assignees: ${{github.actor}}
+        labels: update_needed
+        body: This library needs to be updated.    
         
     - name: decide
       if: ${{ failure() }}
-#      run: |
-#    - name: Upload the Build Artifact
-      # apparently next line contails deprecated use of nodejs 12 ??
+      # apparently next line contails deprecated use of nodejs 12 ??   
       uses: actions/upload-artifact@v2.2.2
       with:
         name: libQtPas
