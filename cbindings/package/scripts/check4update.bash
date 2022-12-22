@@ -17,5 +17,5 @@ if [ "$REMOTEpat" == "$LOCALpat" ]; then
 else
     echo "$REMOTEpat"               # >> result.text
 fi
-cat result.text
+# cat result.text
 
