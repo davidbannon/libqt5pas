@@ -2,7 +2,7 @@
 
 QTV=5    # or 5 or 6
 
-REMOTE_pro="https://gitlab.com/freepascal.org/lazarus/lazarus/-/raw/main/lcl/interfaces/qt""$QVT""/cbindings/Qt""$QTV""Pas.pro"
+REMOTE_pro="https://gitlab.com/freepascal.org/lazarus/lazarus/-/raw/main/lcl/interfaces/qt""$QTV""/cbindings/Qt""$QTV""Pas.pro"
 REMOTEfile="Qt""$QVT""Pas.pro"
 LOCALfile="libQtPas_src/cbindings/Qt""$QTV""Pas.pro"
 
