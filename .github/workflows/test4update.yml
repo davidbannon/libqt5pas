@@ -37,8 +37,9 @@ jobs:
 
 
     - name: Test if Qt updated
-      run: ${{ env.SOURCE }}/cbindings/package/scripts/check4updates.bash         
-
+      run: |
+         ${{ env.SOURCE }}/cbindings/package/scripts/check4update.bash         
+         ls -l
 #        wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
 #        grep VER_PAT Qt6Pas.pro >> qt6
 #        grep VER_PAT ${{ env.SOURCE }}/cbindings/Qt5Pas.pro >> qt5
