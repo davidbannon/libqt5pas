@@ -6,8 +6,8 @@ name: Build push events (debug mode)
 # events but only for the develop branch
 on:
   issues:
-    types: [opened, edited]
-
+    # types: [opened, edited] # only do edited so we dont retrigger ourself
+    types: [edited]
       
 env:
   SOURCE: 'libQtPas_src'
@@ -48,6 +48,7 @@ jobs:
         # OK, thats silly but this is just a test, ok?
 
     - name: Upload the Build Artifact
+      # apparently next line contails deprecated use of nodejs 12 ??
       uses: actions/upload-artifact@v2.2.2
       with:
         name: libQtPas
