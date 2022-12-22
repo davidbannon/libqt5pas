@@ -44,6 +44,7 @@ jobs:
     # an issue because the versions no longer match
     - name: create an issue
       uses: dacbd/create-issue-action@main
+      if: ${{ failure() }}
       with:
         token: ${{ github.token }}
         title: Update Required
