@@ -13,11 +13,14 @@ wget "$REMOTE_pro"
 REMOTEpat=`grep VER_PAT "$REMOTEfile"`
 LOCALpat=`grep VER_PAT "$LOCALFILE"`
 if [ "$REMOTEpat" == "$LOCALpat" ]; then
+	echo "all clear"
     exit 0
 else
-	# this means we need do rasie issue
+	# this means we need to raise an issue
+	echo "hmm, seems we have issues"
 	echo "$REMOTEpat" >> result.text
+	cat result.text
     exit 1
 fi
-# cat result.text
+
 
