@@ -15,7 +15,7 @@ LOCALpat=`grep VER_PAT "$LOCALFILE"`
 if [ "$REMOTEpat" == "$LOCALpat" ]; then
     echo "no change" >> result.text
 else
-    echo "$REMOTEpat" >> result.text
+    echo "$REMOTEpat"               # >> result.text
 fi
 cat result.text
 
