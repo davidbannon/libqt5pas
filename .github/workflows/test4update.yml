@@ -36,9 +36,9 @@ jobs:
         path: '${{ env.SOURCE }}'
 
     - name: Test if Qt updated
-      run: |
-         ${{ env.SOURCE }}/cbindings/package/scripts/check4update.bash         
-         ls -l
+      id: test_updated
+      run: echo "update_status=${{ env.SOURCE }}/cbindings/package/scripts/check4update.bash" >> $GITHUB_OUTPUT         
+       
 #        wget https://raw.githubusercontent.com/davidbannon/libqt6pas/master/cbindings/Qt6Pas.pro
 #        grep VER_PAT Qt6Pas.pro >> qt6
 #        grep VER_PAT ${{ env.SOURCE }}/cbindings/Qt5Pas.pro >> qt5
@@ -46,11 +46,14 @@ jobs:
 #        diff qt5 qt6 >> diff.text
 #        ls -l
         # OK, thats silly but this is just a test, ok?
-
-    - name: Upload the Build Artifact
+        
+    - Name: decide
+      run: |
+        if [[ ${{ steps.test_updated.outputs.update_status }} == "" ]]; then exit 0; else exit 1; fi
+#    - name: Upload the Build Artifact
       # apparently next line contails deprecated use of nodejs 12 ??
-      uses: actions/upload-artifact@v2.2.2
-      with:
-        name: libQtPas
-        path: result.text
+#      uses: actions/upload-artifact@v2.2.2
+#      with:
+#        name: libQtPas
+#        path: result.text
         #  ${{ env.SOURCE }}/result.text
