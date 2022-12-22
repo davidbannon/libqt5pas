@@ -52,5 +52,6 @@ jobs:
       with:
         name: libQt6Pas
         path: |
-          ${{ env.SOURCE }}/result.text
+        #  ${{ env.SOURCE }}/result.text
+          result.text
 
