@@ -40,17 +40,14 @@ jobs:
       run: ${{ env.SOURCE }}/cbindings/package/scripts/check4update.bash         
 #      run: |       
 
-      # This will, if the above script returned an error, assume we need to raise
-      # an issue because the versions no longer match
-    - uses: nashmaniac/create-issue-action@v1.1       
-      name: Create Issue Action 
-      if: ${{ failure() }}     
+    # This will, if the above script returned an error, assume we need to raise
+    # an issue because the versions no longer match
+    - name: create an issue
+      uses: dacbd/create-issue-action@main
       with:
-        title: Build Failed
-        token: ${{secrets.GITHUB_TOKEN}}
-    #assignees: ${{github.actor}}
-        labels: update_needed
-        body: This library needs to be updated.    
+        token: ${{ github.token }}
+        title: Update Required
+        body: This library needs to be updated  
         
     - name: decide
       if: ${{ failure() }}
