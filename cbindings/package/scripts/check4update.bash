@@ -11,7 +11,7 @@ LOCALfile="libQtPas_src/cbindings/Qt""$QTV""Pas.pro"
 
 wget "$REMOTE_pro"
 REMOTEpat=`grep VER_PAT "$REMOTEfile"`
-LOCALpat=`grep VER_PAT "$LOCALFILE"`
+LOCALpat=`grep VER_PAT "$LOCALfile"`
 if [ "$REMOTEpat" == "$LOCALpat" ]; then
 	echo "all clear"
     exit 0
