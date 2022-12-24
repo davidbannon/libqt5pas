@@ -23,7 +23,7 @@ Lazarus main, current release versions do not need it.
 
 %files
 
-/usr/%{_lib}/libQt5Pas.so.1.2.11
+/usr/%{_lib}/libQt5Pas.so.1.2.12
 /usr/%{_lib}/libQt5Pas.so.1.2
 /usr/%{_lib}/libQt5Pas.so.1
 %dir "/usr/share/doc/libqt5pas/"
@@ -33,3 +33,4 @@ Lazarus main, current release versions do not need it.
 %changelog
 * Sat Dec 3 2022 David Bannon <tomboy-ng@bannons.id.au> - INSERT_FULL_VER
 - Follow release of Qt5 bindings 1.2.11 in lazarus-main, lib Package
+- Please see github for real history, this is just to suppress warnings.
