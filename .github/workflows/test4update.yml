@@ -1,13 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build push events (debug mode)
+name: Test4Updates
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the develop branch
 on: 
-  schedule
-    # UTC, like a crontab entry. Below is 10:39 (42 minutes past 9pm) and 22:39 utc, 
-    - cron: '42 10,22 * * *'
+  schedule:
+    # UTC, like a crontab entry. Below is 10:45 (45 minutes past 9pm) and 22:39 utc, 
+    - cron: '45 10,22 * * *'
   # workflow_dispatch
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
   
