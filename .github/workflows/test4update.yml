@@ -4,7 +4,13 @@ name: Build push events (debug mode)
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the develop branch
-on: workflow_dispatch
+on: 
+  schedule
+    # UTC, like a crontab entry. Below is 10:39 (42 minutes past 9pm) and 22:39 utc, 
+    - cron: '42 10,22 * * *'
+  # workflow_dispatch
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+  
 #  issues:
     # types: [opened, edited] # only do edited so we dont retrigger ourself
 #    types: [edited]
