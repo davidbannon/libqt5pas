@@ -34,11 +34,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: ubuntu-20.04
-            name: 'Linux 64'
+#          - os: ubuntu-20.04
+#            name: 'Linux 64'
           - os: windows-2022
             name: 'Windows 64'
-            qt-version: '6.2.4'
+            # qt-version: '6.2.4'
+            qt-version: '5.6.1'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -64,18 +65,19 @@ jobs:
         arch: win64_mingw
         cache: ${{ steps.cache-qt.outputs.cache-hit }}
                 
-    - name: Check QT version (only 6.2.*)
-      run: |
-        qmake6 -query | grep "QT_VERSION:6\.2" > qt_version.txt;
-        if ! [ -s qt_version.txt ]; then 
-          exit 1
-        fi
+ #   - name: Check QT version (only 6.2.*)
+ #     run: |
+ #       qmake6 -query | grep "QT_VERSION:6\.2" > qt_version.txt;
+ #       if ! [ -s qt_version.txt ]; then 
+ #         exit 1
+ #       fi
 
-    - name: Building libQt6Pas
+    - name: Building libQt5Pas
       run: |
         cd ${{ env.SOURCE }}/cbindings
-        qmake6
-        make -j8
+        qmake -query
+        qmake -qt=qt5 
+        make -j2
 
     - name: Upload the Build Artifact
       uses: actions/upload-artifact@v2.2.2
