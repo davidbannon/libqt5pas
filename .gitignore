@@ -3,5 +3,6 @@ Makefile
 tmp/
 *.deb
 *.rpm
+*.gz
 libQt5Pas*
 
