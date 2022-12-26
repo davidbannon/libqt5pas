@@ -39,7 +39,7 @@ jobs:
           - os: windows-2022
             name: 'Windows 64'
             # qt-version: '6.2.4'
-            qt-version: '5.9.9'
+            qt-version: '5.9.0'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
