@@ -1,6 +1,6 @@
 #!/bin/bash
 # 
-# A script to package the pre-built libqt6pas library into debs, rpms and a tarball
+# A script to package the pre-built libqt5pas library into debs, rpms and a tarball
 # 	New - rpms and now not build with alien and are also a much higher quality.
 #       Tested on, so far, on a amd64 box, there will be issues on arm
 #	Resonable lintian and rpmlint result. See end of script !
@@ -67,7 +67,7 @@ function WriteControl () {
 	echo "Maintainer: $WHOAMI" >> BUILD/DEBIAN/control
 	echo "Priority: optional" >> BUILD/DEBIAN/control
 	echo "Multi-Arch: same" >> BUILD/DEBIAN/control
-	echo "Homepage: https://wiki.freepascal.org/Qt6_Interface" >> BUILD/DEBIAN/control
+	echo "Homepage: https://wiki.freepascal.org/Qt5_Interface" >> BUILD/DEBIAN/control
 	# ----- I am not sure if the following is a good idea or not, no, better without, as is replaces old ver, might get new version next
 	# echo "Replaces: libqt5pas1" >> BUILD/DEBIAN/control
 
@@ -79,7 +79,7 @@ function WriteControl () {
 		# echo "Installed-Size: 1445" >> BUILD/DEBIAN/control
 		echo "Depends: $PRODUCT""1 (>= $MINORVER.$EXTRAVER), libqt5opengl5-dev, libqt5x11extras5-dev" >> BUILD/DEBIAN/control
 		echo "Section: libdevel" >> BUILD/DEBIAN/control
-		echo "Description: Development files for Qt6Pas" >> BUILD/DEBIAN/control
+		echo "Description: Development files for Qt5Pas" >> BUILD/DEBIAN/control
 	else
 		# echo "Installed-Size: 3314" >> BUILD/DEBIAN/control
 		
