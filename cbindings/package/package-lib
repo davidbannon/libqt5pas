@@ -23,7 +23,7 @@
 # 	The '0' in above will be rev'ed by every change Z makes to the interface, the 6.2 is the LTS Qt6 release
 
 
-PACKVER='2'		# should start at '1', rev if you re-package same binary
+PACKVER='4'		# should start at '1', rev if you re-package same binary
 
 LIBNAME=libQt5Pas
 PRODUCT="libqt5pas"	# lib has upper case Q - P, this appears in Package name, add '1' to lib, -dev to devlib
@@ -56,12 +56,13 @@ function WriteControl () {
 	if [ "$1" = "DEV" ]; then
 		echo "Package: $PRODUCT-dev" >> BUILD/DEBIAN/control			
 	else
-		echo "Package: $PRODUCT" >> BUILD/DEBIAN/control
+		echo "Package: $PRODUCT"1 >> BUILD/DEBIAN/control
 		# Next line should mention the source package name we don't have one yet.
 		# https://www.debian.org/doc/debian-policy/ch-controlfields.html#source
 		# echo "Source: CHANGE-ME" >> BUILD/DEBIAN/control
 	fi
-	echo "Version: ""$MAJORVER"."$MINORVER"."$EXTRAVER" >> BUILD/DEBIAN/control
+#	echo "Version: ""$MAJORVER"."$MINORVER"."$EXTRAVER" >> BUILD/DEBIAN/control
+	echo "Version: ""$MINORVER"."$EXTRAVER" >> BUILD/DEBIAN/control
 	echo "Architecture: ""$ARCH" >> BUILD/DEBIAN/control
 	echo "Maintainer: $WHOAMI" >> BUILD/DEBIAN/control
 	echo "Priority: optional" >> BUILD/DEBIAN/control
@@ -76,7 +77,7 @@ function WriteControl () {
 
 	if [ "$1" = "DEV" ]; then
 		# echo "Installed-Size: 1445" >> BUILD/DEBIAN/control
-		echo "Depends: $PRODUCT (>= $MAJORVER.$MINORVER.$EXTRAVER), libqt5opengl5-dev, libqt5x11extras5-dev" >> BUILD/DEBIAN/control
+		echo "Depends: $PRODUCT""1 (>= $MINORVER.$EXTRAVER), libqt5opengl5-dev, libqt5x11extras5-dev" >> BUILD/DEBIAN/control
 		echo "Section: libdevel" >> BUILD/DEBIAN/control
 		echo "Description: Development files for Qt6Pas" >> BUILD/DEBIAN/control
 	else
