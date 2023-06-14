@@ -8,7 +8,7 @@
 
 <size:small>Don't edit this markdown file, its generated from the tomboy-ng note.</size:small>
 
-<bold>Please Note : you probably don't need these files unless you are using Lazarus Main</bold> The new things that changed with 1.2.10 only exist in Lazarus Trunk at the moment.
+<bold>Please Note : you probably don't need these files unless you are using Lazarus Main</bold> The new things that changed with 1.2.13 only exist in Lazarus Trunk at the moment.
 
 Download packaged libraries for Intel 64 bit and arm 32 and 64 bit  from https://github.com/davidbannon/libqt5pas/releases/latest
 
@@ -22,13 +22,13 @@ Bug reports relating to this repository's packaging or currency should be report
 
 <size:large><bold>Names and Numbers</bold></size:large>
 
-The current release available here is 1.2.10 (Feb 2022) and that replaces the previous release, here, of 1.2.9.
+The current release available here is 1.2.13 (June 2023) and that replaces the previous release, here, of 1.2.12.
 
 
 <list><list-item dir="ltr">The version of the package distributing this package is the second and third parts of the library version, that was initially <bold>2.8</bold></list-item></list>
 <list><list-item dir="ltr">The correct file name of the installed library on a based Linux (and similar) system was initially  libqt5pas.so.1.2.8 with a symlink to, at least libqt5pas.so.1</list-item></list>
 <list><list-item dir="ltr">In the packaging process, the '1' appears to be merged into the name sometimes. Not in the dev version however.</list-item></list>
-<list><list-item dir="ltr">This library is called libQt5Pas.so.1.2.10 and has a symlink to libQt5Pas.so.1 built into the packaging. BUT Zeljko's code makes two more symlinks (libQt5Pas.so and libQt5Pas.so.1.2) and I will update these packages to comply as soon as I can. In the mean time, I believe the extra two symlinks are probably not required but are clearly a good idea.</list-item></list>
+<list><list-item dir="ltr">This library is called libQt5Pas.so.1.2.13 and has a symlink to libQt5Pas.so.1 built into the packaging. BUT Zeljko's code also makes two more symlinks (libQt5Pas.so and libQt5Pas.so.1.2), maybe a good idea if you are manually installing.</list-item></list>
 
 <size:large><bold>Prebuild Packages</bold></size:large>
 
@@ -39,8 +39,8 @@ Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work w
 
 
 </note-content></text>
-  <last-change-date>2022-11-08T13:53:17.7957775+11:00</last-change-date>
-  <last-metadata-change-date>2022-11-08T13:53:17.7957775+11:00</last-metadata-change-date>
+  <last-change-date>2023-06-14T14:35:11.5830283+10:00</last-change-date>
+  <last-metadata-change-date>2023-06-14T14:35:11.5830283+10:00</last-metadata-change-date>
   <create-date>2022-11-08T13:46:34.2510486+11:00</create-date>
   <cursor-position>1</cursor-position>
   <selection-bound-position>1</selection-bound-position>
