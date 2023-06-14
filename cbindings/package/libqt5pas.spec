@@ -23,7 +23,7 @@ Lazarus main, current release versions do not need it.
 
 %files
 
-/usr/%{_lib}/libQt5Pas.so.1.2.12
+/usr/%{_lib}/libQt5Pas.so.1.2.INSERT_EXTRAVER
 /usr/%{_lib}/libQt5Pas.so.1.2
 /usr/%{_lib}/libQt5Pas.so.1
 %dir "/usr/share/doc/libqt5pas/"

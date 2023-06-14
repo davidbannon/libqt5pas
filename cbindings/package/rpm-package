@@ -80,8 +80,13 @@ function MakeRPM () {
 	sed -i "s/^Version:*./Version: ${VERSION}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/^Release:*./Release: ${PACKVER}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/INSERT_FULL_VER/Version: ${FULLVER}/" "$RDIR"/"$PRODUCT".spec
+    sed -i "s/INSERT_EXTRAVER/${EXTRAVER}/" "$RDIR"/"$PRODUCT".spec
 	cp "$RDIR"/"$PRODUCT".spec "$PRODUCT""$1".spec-just-used
 	cd "$RDIR"
+
+echo "------ In Make RPM, done stuff, arch=$M_ARCH, current=$CURRENT, rdir=$RDIR, product=$PRODUCT"
+
+
 	fakeroot rpmbuild --target "$M_ARCH" --buildroot "$CURRENT"/"$RDIR" -bb "$PRODUCT".spec
 	cd .. 
 }
@@ -112,8 +117,11 @@ function SetUpArch () {
 
 
 SetUpArch
+echo "Arch setup version=$VERSION"
 MakeRPM   
+echo "MakeRPM version=$VERSION"
 MakeRPM "devel" 
+echo "MakeDev version=$VERSION"
 
 rpmlint -i *.rpm
 
