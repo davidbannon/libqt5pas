@@ -6,7 +6,12 @@ apt install devscripts rpm rpmlint
 Pull down the code from gitlab,
 cd cbindings
 refresh source
-update version file
+   # for Davo -
+   # On the dell, update your git based Lazarus to get the new code.
+   # in ~/Pascal/LibQt5/libqt5pas/cbindings, git pull and then rm src
+   # cp the contents of lazarus-git/lcl/interfaces/qt5/cbindinds to 
+   # ~/Pascal/LibQt5/libqt5pas/cbindings/.
+
 qmake -qt=qt5 <enter>
 make <enter>
 (wait awhile)

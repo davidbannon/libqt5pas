@@ -3,7 +3,7 @@ Name: libqt5pas-devel
 Version: 
 Release: 
 Summary: Qt5 interface bindings for Pascal Devel Package
-License: see /usr/share/doc/libqt5pas/copyright
+License: LGPLv3+
 Packager: David Bannon <tomboy-ng@bannons.id.au>
 URL: https://github.com/davidbannon/libqt6pas
 Requires: INSERT_DEPEND
