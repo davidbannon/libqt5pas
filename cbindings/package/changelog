@@ -1,3 +1,15 @@
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@internode.on.net>  Tue, 05 Sep 2023 22:02:35 +1000
+
 libqt5pas (1.2.9) unstable; urgency=medium
 
   * TLazAccessibleObject accessinility functionality for Qt5 widgetsets

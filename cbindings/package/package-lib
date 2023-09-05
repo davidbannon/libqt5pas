@@ -6,30 +6,16 @@
 #	Resonable lintian and rpmlint result. See end of script !
 #
 #	    David Bannon 2022-11-25
-# NAMING
-#	Hard to be sure, no clear definition and varying conventions in use but -
-#	ftp.debian.org/debian/pool/main/q/qt6-base - typical...
-#	libqt6opengl6-dev_6.4.1-1_armhf.deb
-#	libqt6opengl6_6.3.1-1_i386.deb
-#	Note that the '6' appears 3 times but in each case refers to the same thing !
-#	So, we always have a name including 'qt6' then ending in'6' and then a VerNo starting with '6'
-#	And all three '6' are both in main package and -dev package.
-#	And the number of the beast shall be 666 .....
-#	The actual, binary library file is libQt6OpenGL.so.6.4.1 so the trailing '6' on the name has dissapeared !
-# 	So, we will do - 
-#		Library, binary libQt6Pas.so.6.2.3
-#		Package,        libqt6pas6_6.2.0-1_amd64.deb 
-#		Dev Package     libqt6pas6-dev.6.2.0-1_amd64.deb
-# 	The '0' in above will be rev'ed by every change Z makes to the interface, the 6.2 is the LTS Qt6 release
 
-
-PACKVER='4'		# should start at '1', rev if you re-package same binary
+PACKVER='1'		# should start at '1', rev if you re-package same binary
 
 LIBNAME=libQt5Pas
 PRODUCT="libqt5pas"	# lib has upper case Q - P, this appears in Package name, add '1' to lib, -dev to devlib
 CURRENT=`pwd`
 
-	# library will be called something like ./libQt6Pas.so.6.2.3, the package libqt6pas6_6.2.0-1_amd64.deb and libqt6pas6-dev.6.2.0-1_amd64
+	# library will be called something like -
+	# libQt5Pas.so.1.2.14, the package libqt5pas1_2.14-1_amd64.deb and libqt5pas-dev_2.14-1_amd64
+	# libqt5pas-1.2.14-1.x86_64.rpm and libqt5pas-devel-1.2.14-1.x86_64.rpm
 	cd ..
 	LIBFILE=$(find . -maxdepth 1 ! -type l  -name "$LIBNAME""*")
 	cd $CURRENT
@@ -51,6 +37,8 @@ M_ARCH=`uname -m`	# Might return, eg aarch64, x86_64. Raspi running 32bit return
 
 WHOAMI="David Bannon <tomboy-ng@bannons.id.au>"
 BUILDDATE=`date -R`
+
+
 
 function WriteControl () {
 	if [ "$1" = "DEV" ]; then
@@ -100,7 +88,7 @@ function DebianPackage () {
 	rm -rf BUILD
 	mkdir -p BUILD/DEBIAN
 	mkdir -p BUILD/usr/lib/"$DIR_ARCH"
-	mkdir -p BUILD/usr/share/doc/"$PRODUCT"
+	mkdir -p BUILD/usr/share/doc/"$PRODUCT""$MAJORVER"
 	WriteControl
 	cp ../"$FULLLIBNAME" BUILD/usr/lib/"$DIR_ARCH"/.
 	ln -s -r BUILD/usr/lib/"$DIR_ARCH"/"$FULLLIBNAME" BUILD/usr/lib/"$DIR_ARCH"/"$LIBNAME".so."$MAJORVER"."$MINORVER"
@@ -108,16 +96,28 @@ function DebianPackage () {
 	# Don't link to base name, Lintian objects 'cos thats the -dev package's job
 	chmod 0644 BUILD/usr/lib/"$DIR_ARCH"/*
 	
-    cp copyright "BUILD/usr/share/doc/$PRODUCT/copyright"
+    cp copyright "BUILD/usr/share/doc/$PRODUCT$MAJORVER/copyright"
 	
 	echo "activate-noawait ldconfig" > BUILD/DEBIAN/triggers
 	echo "libQt5Pas $MAJORVER libqt5pas$MAJORVER" > BUILD/DEBIAN/shlibs
-	gzip -knc --best changelog.libqt5pas >> BUILD/usr/share/doc/"$PRODUCT"/changelog.gz
+	
+	dch -cchangelog -v "$MAJORVER"."$MINORVER"."$EXTRAVER" -D"unstable" "Release of new version."   
+	if [ -f whatsnew ]; then
+	   	echo "---------- Including whatsnew in changelog"
+	   	while IFS= read -r Line; do
+		dch -cchangelog --append "$Line"
+	   	done < whatsnew
+	fi
+	dch -cchangelog --append "Please see Lazarus at gitlab for further change details."
+	
+	gzip -knc --best changelog >> BUILD/usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz
+	ls -l BUILD/usr/share/doc/"$PRODUCT$MAJORVER"
+	gzip -knc --best changelog >> changelog.gz
 	# ------ Make the md5sum file -----------
 	cd BUILD
 	md5sum  usr/lib/"$DIR_ARCH"/"$LIBNAME".so."$MAJORVER"."$VERSION" > DEBIAN/md5sums
-	md5sum  usr/share/doc/"$PRODUCT"/copyright >> DEBIAN/md5sums
-	md5sum  usr/share/doc/"$PRODUCT"/changelog.gz >> DEBIAN/md5sums
+	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/copyright >> DEBIAN/md5sums
+	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz >> DEBIAN/md5sums
 	cd ..
 	chmod -R g-w BUILD
   	fakeroot dpkg-deb -b BUILD/. "$PRODUCT"1_"$VERSION"-"$PACKVER"_"$ARCH".deb
@@ -136,7 +136,7 @@ function DebianPackageDev () {
 	#cp ../qt62.pas BUILD/usr/share/pascal/qt6/.
 	chmod 0644 BUILD/usr/share/pascal/qt5/*
     cp copyright BUILD/usr/share/doc/"$PRODUCT-dev"/copyright
-	gzip -knc --best changelog.libqt5pas >> BUILD/usr/share/doc/"$PRODUCT-dev"/changelog.gz
+	gzip -knc --best changelog >> BUILD/usr/share/doc/"$PRODUCT-dev"/changelog.gz
  
 	# ------ Make the md5sum file -----------
 	cd BUILD
@@ -169,8 +169,8 @@ function MakeRPM () {
 		echo "========= RPM Devel Package ========"
 		mkdir -p "$RDIR"/usr/share/doc/"$PRODUCT"-devel
 		chmod 755 "$RDIR"/usr/share/doc/"$PRODUCT"-devel
-    		cp copyright "$RDIR"/usr/share/doc/"$PRODUCT"-devel/copyright
-		gzip -knc --best changelog.libqt5pas >> "$RDIR"/usr/share/doc/"$PRODUCT"-devel/changelog.gz
+    	cp copyright "$RDIR"/usr/share/doc/"$PRODUCT"-devel/copyright
+		gzip -knc --best changelog >> "$RDIR"/usr/share/doc/"$PRODUCT"-devel/changelog.gz
 		cd "$RDIR"/usr/"$RDIR_ARCH"
 		ln -s "$FULLLIBNAME" "$LIBNAME".so
 		cd "$CURRENT"
@@ -186,7 +186,7 @@ function MakeRPM () {
 		mkdir -p "$RDIR"/usr/share/doc/"$PRODUCT"
 		chmod 755 "$RDIR"/usr/share/doc/"$PRODUCT"
     		cp copyright "$RDIR/usr/share/doc/"$PRODUCT"/copyright"
-		gzip -knc --best changelog.libqt5pas >> "$RDIR"/usr/share/doc/"$PRODUCT"/changelog.gz
+		gzip -knc --best changelog >> "$RDIR"/usr/share/doc/"$PRODUCT"/changelog.gz
 		cp ../"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/.
 		chmod 755 "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME"
 		ln -s -r "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so."$MAJORVER"."$MINORVER"
@@ -196,7 +196,8 @@ function MakeRPM () {
 	sed -i "s/^Version:*./Version: ${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/^Release:*./Release: ${PACKVER}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/INSERT_FULL_VER/Version: ${FULLVER}/" "$RDIR"/"$PRODUCT".spec
-	sed -i "s/INSERT_VERSION/${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
+#	sed -i "s/INSERT_VERSION/${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
+	sed -i "s/INSERT_EXTRAVER/${EXTRAVER}/" "$RDIR"/"$PRODUCT".spec
 	cp -f "$RDIR"/"$PRODUCT".spec "$PRODUCT""$1".spec-just-used
 	cd "$RDIR"
 	fakeroot rpmbuild --target "$M_ARCH" --buildroot "$CURRENT"/"$RDIR" -bb "$PRODUCT".spec
@@ -230,7 +231,7 @@ rm -f *.deb *.rpm *.gz
 
 strip --remove-section=.comment ../"$FULLLIBNAME"
 
-DebianPackage 
+DebianPackage 				# do before dev package because it updates the changelog
 DebianPackageDev
 echo " ====== Finished Building Debs ======="
 MakeRPM   
@@ -246,10 +247,12 @@ rm -Rf "$TARNAME"
 rm -Rf BUILD
 ls -ltr
 
-# ------- RESTORE ME --------------- lintian -IiE *.deb
+echo "---------------- DEB Lintian Results ----------------------------"
 
-#echo " === OK, now make the rpms with   fakeroot bash ./rpm-package.bash   <enter> ==="
+lintian -IiE *.deb
 
+echo "---------------- RPM Lint Results --------------------------------"
+rpmlint -i *.rpm
 
 # --------------- RPM LINT Issues ------------------------------
 

@@ -30,6 +30,9 @@ Lazarus main, current release versions do not need it.
 "/usr/share/doc/libqt5pas/changelog.gz"
 "/usr/share/doc/libqt5pas/copyright"
 
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %changelog
 * Sat Dec 3 2022 David Bannon <tomboy-ng@bannons.id.au> - INSERT_FULL_VER
 - Follow release of Qt5 bindings 1.2.11 in lazarus-main, lib Package
