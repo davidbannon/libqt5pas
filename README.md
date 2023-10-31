@@ -11,7 +11,11 @@ README
 
 
 
-**Please Note : you probably don't need these files unless you are using Lazarus Main** The new things that changed with 1.2.13 only exist in Lazarus Trunk at the moment.
+**Please Note :A release version of Lazarus earlier than Lazarus 3.0 does not use these libraries. However, if you build with Lazarus 3.0 or later (including the current 3.0rc1 or 3.0rc2) you do need them (unless you build your own)**.
+
+
+
+At some point in time, after the formal release of Lazarus 3.0, the distributions will start shipping the newer libQt5pas and only Lazarus Main users will need these packages again. Note, its likely there will be some conflict of version numbers, we will see !
 
 
 
@@ -39,9 +43,7 @@ Bug reports relating to this repository's packaging or currency should be report
 --------
 
 
-The current release available here is 1.2.13 (June 2023) and that replaces the previous release, here, of 1.2.12.
-
-
+The current release available here is 1.2.15 (September 2023).
 
 
 
@@ -59,7 +61,7 @@ The current release available here is 1.2.13 (June 2023) and that replaces the p
 --------
 
 
-Provided are debs and rpms of the library itself and matching development packages.  Gzipped Tar balls are also provided for experienced users. Most current Linux distributions usually have a reasonably current version of these libraries that will work fine with Lazarus 2.2.4, if you can use those, you should do so.
+Provided are debs and rpms of the library itself and matching development packages.  Gzipped Tar balls are also provided for experienced users. Most current Linux distributions usually have a reasonably current version of these libraries that will work fine with, up to Lazarus 2.2.6, if you can use those, you should do so.
 
 If you are using older distributions, or distributions built on an older base such as **Ubuntu 18.04** and **Mageia 7.1** you need these newer libQt5Pas libraries to work with current **Release** Lazarus code such as Lazarus 2.0.6 through to Lazarus 2.2.4 (at time of writing). But better to update your Linux IMHO.
 
@@ -68,5 +70,11 @@ If you are using older distributions, or distributions built on an older base su
 Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work with Lazarus Qt5 even with the addition of these libraries. Their Qt5 is too old.
 
 
+
+Its believed that these libraries will always be backwards compatible, that is, the ones here will work with any earlier Lazarus (as long as the distribution's Qt5 itself is OK).
+
+
+
+**PLEASE report any probems you have, I cannot fix a problem I don't know about.**
 
 

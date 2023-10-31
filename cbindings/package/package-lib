@@ -2,8 +2,10 @@
 # 
 # A script to package the pre-built libqt5pas library into debs, rpms and a tarball
 # 	New - rpms and now not build with alien and are also a much higher quality.
-#       Tested on, so far, on a amd64 box, there will be issues on arm
-#	Resonable lintian and rpmlint result. See end of script !
+#       Tested on, so far, on a amd64 box, there will be issues on arm cos no rpmlint !
+#	Reasonable lintian and rpmlint result. See end of script !
+#	must get DEBEMAIL=tomboy-ng@bannons.id.au DEBFULLNAME="David Bannon" in env.
+#	Require devscripts, lintian, gcc....
 #
 #	    David Bannon 2022-11-25
 
@@ -100,13 +102,14 @@ function DebianPackage () {
 	
 	echo "activate-noawait ldconfig" > BUILD/DEBIAN/triggers
 	echo "libQt5Pas $MAJORVER libqt5pas$MAJORVER" > BUILD/DEBIAN/shlibs
-	
-	dch -cchangelog -v "$MAJORVER"."$MINORVER"."$EXTRAVER" -D"unstable" "Release of new version."   
-	if [ -f whatsnew ]; then
-	   	echo "---------- Including whatsnew in changelog"
-	   	while IFS= read -r Line; do
-		dch -cchangelog --append "$Line"
-	   	done < whatsnew
+	if [ "$M_ARCH" == "x86_64" ]; then					# only write changelog on first run, x86_64 
+		dch -cchangelog -v "$MAJORVER"."$MINORVER"."$EXTRAVER" -D"unstable" "Release of new version."   
+		if [ -f whatsnew ]; then
+	   		echo "---------- Including whatsnew in changelog"
+	   		while IFS= read -r Line; do
+			dch -cchangelog --append "$Line"
+	   		done < whatsnew
+		fi
 	fi
 	dch -cchangelog --append "Please see Lazarus at gitlab for further change details."
 	
