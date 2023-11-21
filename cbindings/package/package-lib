@@ -35,7 +35,7 @@ FULLLIBNAME="$LIBNAME".so."$MAJORVER"."$VERSION"
 
 ARCH=unknown		# we will set further down. amd64  arm64 and armhf, note: arm64 aka aarch64 ? 
 DIR_ARCH=unknown
-M_ARCH=`uname -m`	# Might return, eg aarch64, x86_64. Raspi running 32bit returns armv7l - possibly RasPi version specific ?
+M_ARCH=`uname -m`	# Might return, eg aarch64, x86_64, i686. Raspi running 32bit returns armv7l - possibly RasPi version specific ?
 
 WHOAMI="David Bannon <tomboy-ng@bannons.id.au>"
 BUILDDATE=`date -R`
@@ -222,6 +222,11 @@ if [ "$M_ARCH" == "x86_64" ]; then
 	ARCH="amd64"
 	DIR_ARCH="x86_64-linux-gnu"
 	RDIR_ARCH="lib64"		# Where RPMs put the library 
+fi
+if [ "$M_ARCH" == "i686" ]; then	# eg, debian 32 bit
+	ARCH="i386"
+	DIR_ARCH="i386-linux-gnu"
+	RDIR_ARCH="lib"			# A guess ? Where RPMs put the library 
 fi
 if [ "$ARCH" == "unknown" ]; then
 	echo "ERROR cannot id your arch $DIR_ARCH, exiting..."
