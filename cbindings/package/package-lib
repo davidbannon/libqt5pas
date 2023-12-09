@@ -9,7 +9,7 @@
 #
 #	    David Bannon 2022-11-25
 
-PACKVER='1'		# should start at '1', rev if you re-package same binary
+PACKVER='2'		# should start at '1', rev if you re-package same binary
 
 LIBNAME=libQt5Pas
 PRODUCT="libqt5pas"	# lib has upper case Q - P, this appears in Package name, add '1' to lib, -dev to devlib
@@ -243,7 +243,10 @@ DebianPackage 				# do before dev package because it updates the changelog
 DebianPackageDev
 echo " ====== Finished Building Debs ======="
 MakeRPM   
-MakeRPM "devel"       
+MakeRPM "devel"  
+# OK, lets sign the RPMs, requires ~/.rpmmacro to tell us which gpg key to use.
+echo "Davo - use long pass phrase !"     
+for i in `ls -b *.rpm`; do rpm --addsign "$i"; echo "Signed $i"; done
 
 TARNAME=libqt5pas_"$MAJORVER"_"$MINORVER"_"$EXTRAVER"-"$PACKVER"_"$ARCH"
 rm -Rf "$TARNAME"
