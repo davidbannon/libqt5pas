@@ -7,7 +7,7 @@ License: LGPLv3+
 Packager: David Bannon <tomboy-ng@bannons.id.au>
 URL: https://github.com/davidbannon/libqt5pas
 
-Provides: libqt5pas = 1.2.15
+Provides: libqt5pas = 2.15
 # Next line for Mageia 9
 Obsoletes: lib64qt5pas1 = 2.6.lazarus2.2.0
 # Next line for Fedora 37-39
