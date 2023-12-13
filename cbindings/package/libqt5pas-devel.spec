@@ -12,7 +12,8 @@ Provides: libqt5pas-devel = 2.15
 Obsoletes: lib64qt5pas-devel = 2.6.lazarus2.2.0
 # Next line for Fedora 37-39
 Obsoletes: qt5pas-devel = 2.6
-
+# Next Line for OpenSuse 15.5, probably a couple of earlier releases too
+Obsoletes: libQt5Pas1 = 2.2.4
 
 %define _build_id_links none
 
