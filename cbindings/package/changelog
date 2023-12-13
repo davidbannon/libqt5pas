@@ -8,6 +8,318 @@ libqt5pas (1.2.15) unstable; urgency=medium
     overload.
   * Please see Lazarus at gitlab for further change details.
 
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 22:05:41 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:45:32 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:43:48 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:20:43 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:18:30 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:14:36 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:13:33 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:11:30 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:06:50 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 21:01:05 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 20:58:56 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 20:18:27 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 20:12:58 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 20:09:47 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 19:58:16 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 19:55:33 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 19:29:25 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 14:32:19 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 14:07:48 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 14:04:10 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 14:00:32 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 13:12:05 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 13:11:02 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 13:07:42 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Sat, 09 Dec 2023 17:23:04 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <dbannon@dell.lan>  Sat, 09 Dec 2023 16:58:47 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
  -- David Bannon <dbannon@internode.on.net>  Tue, 05 Sep 2023 22:02:35 +1000
 
 libqt5pas (1.2.9) unstable; urgency=medium

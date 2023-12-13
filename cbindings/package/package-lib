@@ -9,7 +9,7 @@
 #
 #	    David Bannon 2022-11-25
 
-PACKVER='2'		# should start at '1', rev if you re-package same binary
+PACKVER='3'		# should start at '1', rev if you re-package same binary
 
 LIBNAME=libQt5Pas
 PRODUCT="libqt5pas"	# lib has upper case Q - P, this appears in Package name, add '1' to lib, -dev to devlib
@@ -59,7 +59,8 @@ function WriteControl () {
 	echo "Multi-Arch: same" >> BUILD/DEBIAN/control
 	echo "Homepage: https://wiki.freepascal.org/Qt5_Interface" >> BUILD/DEBIAN/control
 	# ----- I am not sure if the following is a good idea or not, no, better without, as is replaces old ver, might get new version next
-	# echo "Replaces: libqt5pas1" >> BUILD/DEBIAN/control
+#    echo "Breaks: libqt5pas1 (<= 2.6)" >> BUILD/DEBIAN/control
+#	echo "Replaces: libqt5pas1 (<= 2.6)" >> BUILD/DEBIAN/control         # Older distro packages before formalising ver no were called this
 
 
 	SIZE_IN_KB="$(du -s BUILD | awk '{print $1;}')"
@@ -82,6 +83,8 @@ function WriteControl () {
 	echo " a temp hack until distributions catch up. It is" >> BUILD/DEBIAN/control
 	echo " only really useful, at present, to people using"   >> BUILD/DEBIAN/control
 	echo " Lazarus main, current release versions do not need it." >> BUILD/DEBIAN/control
+
+cp BUILD/DEBIAN/control control."$1"
 }
 
 
@@ -159,10 +162,10 @@ function DebianPackageDev () {
 # We want a dir name like this - libqt6pas6-2.2
 
 function MakeRPM () {
-	# PARTVER="$MAJORVER"."$MINORVER"."$EXTRAVER"
-	# VERSION="$MAJORVER"."$VERSION"
-	FULLVER="$MAJORVER"."$VERSION"-"$PACKVER"
-    RDIR="$PRODUCT"-"$MAJORVER"."$VERSION"
+	# FULLVER="$MAJORVER"."$VERSION"-"$PACKVER"    # MAJORVER = 1. n.a.
+	FULLVER="$VERSION"-"$PACKVER"
+    # RDIR="$PRODUCT"-"$MAJORVER"."$VERSION"
+    RDIR="$PRODUCT"-"$VERSION"
     echo "=== Making RPM from $PRODUCT"."$FULLVER"_"$ARCH.deb in $RDIR ==="
     rm -Rf "$RDIR"
 	mkdir -p "$RDIR"/usr/"$RDIR_ARCH"
@@ -182,13 +185,14 @@ function MakeRPM () {
     	cp ../qt5.pas "$RDIR/usr/share/doc/"$PRODUCT"-devel/."
     	#cp ../qt62.pas "$RDIR/usr/share/doc/"$PRODUCT"-devel/."
 		cp libqt5pas-devel.spec "$RDIR"/"$PRODUCT".spec
-		sed -i "s/INSERT_DEPEND/${PRODUCT} = ${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
+		# sed -i "s/INSERT_DEPEND/${PRODUCT} = {MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
+		sed -i "s/INSERT_DEPEND/${PRODUCT} = ${VERSION}/" "$RDIR"/"$PRODUCT".spec
 		sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
 	else	
 		echo "========= RPM Lib Package =========="
 		mkdir -p "$RDIR"/usr/share/doc/"$PRODUCT"
 		chmod 755 "$RDIR"/usr/share/doc/"$PRODUCT"
-    		cp copyright "$RDIR/usr/share/doc/"$PRODUCT"/copyright"
+    	cp copyright "$RDIR/usr/share/doc/"$PRODUCT"/copyright"
 		gzip -knc --best changelog >> "$RDIR"/usr/share/doc/"$PRODUCT"/changelog.gz
 		cp ../"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/.
 		chmod 755 "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME"
@@ -196,10 +200,10 @@ function MakeRPM () {
 		ln -s -r "$RDIR"/usr/"$RDIR_ARCH"/"$FULLLIBNAME" "$RDIR"/usr/"$RDIR_ARCH"/"$LIBNAME".so."$MAJORVER"
 		cp libqt5pas.spec "$RDIR"/"$PRODUCT".spec
 	fi
-	sed -i "s/^Version:*./Version: ${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
+	# sed -i "s/^Version:*./Version: ${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
+	sed -i "s/^Version:*./Version: ${VERSION}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/^Release:*./Release: ${PACKVER}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/INSERT_FULL_VER/Version: ${FULLVER}/" "$RDIR"/"$PRODUCT".spec
-#	sed -i "s/INSERT_VERSION/${MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/INSERT_EXTRAVER/${EXTRAVER}/" "$RDIR"/"$PRODUCT".spec
 	cp -f "$RDIR"/"$PRODUCT".spec "$PRODUCT""$1".spec-just-used
 	cd "$RDIR"
