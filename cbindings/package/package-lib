@@ -1,5 +1,11 @@
 #!/bin/bash
-# 
+#
+# Usage : eg  DEBEMAIL=tomboy-ng@bannons.id.au DEBFULLNAME="David Bannon" bash ./package-lib <enter>
+#
+# Remember, rpms may not be signed, on right box, rpm --addsign something.rpm <enter>
+#           for i in `ls -b *.rpm`; do rpm --addsign "$i"; echo "Signed $i"; done
+#
+#           
 # A script to package the pre-built libqt5pas library into debs, rpms and a tarball
 # 	New - rpms and now not build with alien and are also a much higher quality.
 #       Tested on, so far, on a amd64 box, there will be issues on arm cos no rpmlint !
@@ -126,6 +132,7 @@ function DebianPackage () {
 	md5sum  usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz >> DEBIAN/md5sums
 	cd ..
 	chmod -R g-w BUILD
+	du -hs BUILD
   	fakeroot dpkg-deb -b BUILD/. "$PRODUCT"1_"$VERSION"-"$PACKVER"_"$ARCH".deb
 }
 
@@ -187,7 +194,7 @@ function MakeRPM () {
 		cp libqt5pas-devel.spec "$RDIR"/"$PRODUCT".spec
 		# sed -i "s/INSERT_DEPEND/${PRODUCT} = {MAJORVER}.${VERSION}/" "$RDIR"/"$PRODUCT".spec
 		sed -i "s/INSERT_DEPEND/${PRODUCT} = ${VERSION}/" "$RDIR"/"$PRODUCT".spec
-		sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
+		# sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
 	else	
 		echo "========= RPM Lib Package =========="
 		mkdir -p "$RDIR"/usr/share/doc/"$PRODUCT"
@@ -205,6 +212,8 @@ function MakeRPM () {
 	sed -i "s/^Release:*./Release: ${PACKVER}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/INSERT_FULL_VER/Version: ${FULLVER}/" "$RDIR"/"$PRODUCT".spec
 	sed -i "s/INSERT_EXTRAVER/${EXTRAVER}/" "$RDIR"/"$PRODUCT".spec
+	sed -i "s/INSERT_RDIR/${RDIR}/" "$RDIR"/"$PRODUCT".spec
+
 	cp -f "$RDIR"/"$PRODUCT".spec "$PRODUCT""$1".spec-just-used
 	cd "$RDIR"
 	fakeroot rpmbuild --target "$M_ARCH" --buildroot "$CURRENT"/"$RDIR" -bb "$PRODUCT".spec
@@ -212,12 +221,21 @@ function MakeRPM () {
 }
 
 
-if [ "$M_ARCH" == "aarch64" ]; then
-	ARCH="arm64"			# Name used in deb file name
-	DIR_ARCH="aarch64-linux-gnu"	# Dir where the libraries end up
-	RDIR_ARCH="lib64"		# Where RPMs put the library         TODO !!!
+if [ "$M_ARCH" == "aarch64" ]; then	# OK, arm64 hardware but maybe 32bit OS ?
+	OSBITNESS=`getconf LONG_BIT`
+	if [ "$OSBITNESS" == "32" ]; then
+	    echo "NOTE : 32bit OS running on 64bit arm hardware"
+	    ARCH="armhf"
+	    DIR_ARCH="arm-linux-gnueabihf"
+	    RDIR_ARCH="lib"
+	    M_ARCH="$ARCH"
+	else
+	    ARCH="arm64"			# Name used in deb file name
+	    DIR_ARCH="aarch64-linux-gnu"	# Dir where the libraries end up
+	    RDIR_ARCH="lib64"		# Where RPMs put the library        
+	fi
 fi
-if [ "$M_ARCH" == "armv7l" ]; then
+if [ "$M_ARCH" == "armv7l" ]; then		# 32 bit arm, eg raspi
 	ARCH="armhf"
 	DIR_ARCH="arm-linux-gnueabihf"
 	RDIR_ARCH="lib"		# Where RPMs put the library         TODO !!!
