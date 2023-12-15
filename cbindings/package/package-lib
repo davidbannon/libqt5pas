@@ -225,7 +225,7 @@ if [ "$M_ARCH" == "aarch64" ]; then	# OK, arm64 hardware but maybe 32bit OS ?
 	OSBITNESS=`getconf LONG_BIT`
 	if [ "$OSBITNESS" == "32" ]; then
 	    echo "NOTE : 32bit OS running on 64bit arm hardware"
-	    ARCH="armhf"
+	    ARCH="armv7hl"              # Mageia 9 includes 'h' - hard float ?
 	    DIR_ARCH="arm-linux-gnueabihf"
 	    RDIR_ARCH="lib"
 	    M_ARCH="$ARCH"
@@ -288,6 +288,17 @@ echo "---------------- RPM Lint Results --------------------------------"
 rpmlint -i *.rpm
 
 # --------------- RPM LINT Issues ------------------------------
+
+# This relates to the Obsolete: directives necessary to get it to overwrite
+# the range of libqt5pas packages in the RPM world. If I do as it demands,
+# add in anoth Provides: xxx it just generates more, scary messages.
+
+# libqt5pas.armv7hl: W: obsolete-not-provided lib64qt5pas1
+# If a package is obsoleted by a compatible replacement, the obsoleted package
+# should also be provided in order to not cause unnecessary dependency breakage.
+# If the obsoleting package is not a compatible replacement for the old one,
+# leave out the Provides.
+
 
 # libqt6pas6.x86_64: E: library-without-ldconfig-postin
 # libqt6pas6.x86_64: E: library-without-ldconfig-postun
