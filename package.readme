@@ -19,6 +19,22 @@ Then do a git add, commit and push as necessary.
 From github page, make new release, upload as necessary, release.
 
 
+----------- Package Naming Conventions -------------
+
+RPM <Name>-<version no>-<release no>.<arch>.rpm - widely ignored.
+
+32bit arm RPMs should have armv7l or maybe armv7hl ('h' for hard float ?) in filename
+32bit arm debs use armhf - Libraries /usr/lib/arm-linux-gnueabihf 
+
+64bit arm RPMs say aarch65   libraries in /usr/lib64
+64bit arm debs say arm64.deb libraries in /usr/lib/aarch64-linux-gnu   ??
+
+32bit x86 RPMs say i386, i586, i686 apparently at random. Libraries in /usr/lib
+32bit x86 debs all use i386
+
+(i386 being lowest common denominator, i686 is compiled for i686 cpu and will not run on the very old i386 cpu ?)
+
+Very, very non-authorative.
 
 ---------- Legacy Methods, disregard ---------------- 
 
