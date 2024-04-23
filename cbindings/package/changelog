@@ -8,6 +8,18 @@ libqt5pas (1.2.15) unstable; urgency=medium
     overload.
   * Please see Lazarus at gitlab for further change details.
 
+ -- David Bannon <dbannon@dell.lan>  Thu, 14 Dec 2023 10:48:10 +1100
+
+libqt5pas (1.2.15) unstable; urgency=medium
+
+  * Release of new version.
+  * removed QTimer_singleShot4() overload because it cannot be used with
+    Qt5 < 5.10
+  * use QTimer::singleShot() with QObject context from Qt 5.9.0
+  * fixed Qt documentation inconsistency about QTimer::singleShot()
+    overload.
+  * Please see Lazarus at gitlab for further change details.
+
  -- David Bannon <dbannon@dell.lan>  Wed, 13 Dec 2023 22:33:04 +1100
 
 libqt5pas (1.2.9) unstable; urgency=medium

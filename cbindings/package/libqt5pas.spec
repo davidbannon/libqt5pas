@@ -8,8 +8,11 @@ Packager: David Bannon <tomboy-ng@bannons.id.au>
 URL: https://github.com/davidbannon/libqt5pas
 
 Provides: libqt5pas = 2.15
-# Next line for Mageia 9
+# Next line for Mageia 9 64bit
 Obsoletes: lib64qt5pas1 = 2.6.lazarus2.2.0
+# Next line for Mageia 9 32bit
+Obsoletes: libqt5pas1 = 2.6.lazarus2.2.0
+
 # Next line for Fedora 37-39
 Obsoletes: qt5pas = 2.6
 # Next Line for OpenSuse 15.5, probably a couple of earlier releases too
