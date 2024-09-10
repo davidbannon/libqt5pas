@@ -59,7 +59,7 @@ jobs:
     - name: decide
       if: ${{ failure() }}
       # apparently next line contails deprecated use of nodejs 12 ??   
-      uses: actions/upload-artifact@v2.2.2
+      uses: actions/upload-artifact@v4
       with:
         name: libQtPas
         path: result.text
