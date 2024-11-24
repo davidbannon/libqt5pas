@@ -1,3 +1,1 @@
-removed QTimer_singleShot4() overload because it cannot be used with Qt5 < 5.10
-use QTimer::singleShot() with QObject context from Qt 5.9.0
-fixed Qt documentation inconsistency about QTimer::singleShot() overload.
+Fixed bug in cbindings (21-11-2024)

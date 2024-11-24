@@ -5,4 +5,6 @@ tmp/
 *.rpm
 *.gz
 libQt5Pas*
+libqt5pas.spec-just-used
+libqt5pasdevel.spec-just-used
 

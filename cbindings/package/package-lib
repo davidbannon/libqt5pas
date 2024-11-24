@@ -119,9 +119,8 @@ function DebianPackage () {
 			dch -cchangelog --append "$Line"
 	   		done < whatsnew
 		fi
+		dch -cchangelog --append "Please see Lazarus at gitlab for further change details."
 	fi
-	dch -cchangelog --append "Please see Lazarus at gitlab for further change details."
-	
 	gzip -knc --best changelog >> BUILD/usr/share/doc/"$PRODUCT$MAJORVER"/changelog.gz
 	ls -l BUILD/usr/share/doc/"$PRODUCT$MAJORVER"
 	gzip -knc --best changelog >> changelog.gz
