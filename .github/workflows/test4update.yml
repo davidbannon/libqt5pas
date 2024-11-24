@@ -7,7 +7,7 @@ name: Test4Updates
 on: 
   schedule:
     # UTC, like a crontab entry. Below is 10:45 (45 minutes past 9pm) and 22:39 utc, 
-    - cron: '45 10,22 * * *'
+    - cron: '45 10 * * *'
   # workflow_dispatch
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
   
