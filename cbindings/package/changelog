@@ -4,6 +4,22 @@ libqt5pas (1.2.16) unstable; urgency=medium
   * Fixed bug in cbindings (21-11-2024)
   * Please see Lazarus at gitlab for further change details.
 
+ -- David Bannon <tomboy-ng@bannons.id.au>  Mon, 25 Nov 2024 22:08:00 +1100
+
+libqt5pas (1.2.16) unstable; urgency=medium
+
+  * Release of new version.
+  * Fixed bug in cbindings (21-11-2024)
+  * Please see Lazarus at gitlab for further change details.
+
+ -- David Bannon <tomboy-ng@bannons.id.au>  Mon, 25 Nov 2024 22:03:46 +1100
+
+libqt5pas (1.2.16) unstable; urgency=medium
+
+  * Release of new version.
+  * Fixed bug in cbindings (21-11-2024)
+  * Please see Lazarus at gitlab for further change details.
+
  -- David Bannon <tomboy-ng@bannons.id.au>  Sun, 24 Nov 2024 19:04:27 +1100
 
 libqt5pas (1.2.15) unstable; urgency=medium

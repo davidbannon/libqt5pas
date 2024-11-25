@@ -1,6 +1,10 @@
 package.readme
 
-On a suitably setup machine, eg
+Do first build on an x86_64 because that will update the source files and
+the changelog, then ignore source and changelog/whatsnew issues on subsquent
+builds, rely on github ! (But if you do a rebuild
+on x86_64 box, you get a extra entry in the changelog, remove it before 
+pushing up to git. All machines need -
 apt install devscripts rpm rpmlint 
 
 Pull down the code from gitlab,
@@ -12,6 +16,8 @@ refresh source (use a script that gets only relevent files from Lazarus -
 	$> qmake -qt=qt5;  make   (wait ....)
 	$> cd package; 
 	## update the whatsnew file, maybe from Z's commits.
+	## update the two spec files to correct version on Provides: line.
+	## ToDo : above line shuld be done with a sed from package-lib !
 	## remove any existing packages
 	$> DEBEMAIL=YOUR-EMAIL-ADDRESS bash ./package-lib	
 

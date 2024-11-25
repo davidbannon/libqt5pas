@@ -1,13 +1,13 @@
-Buildroot: /home/dbannon/libqt6pas/cbindings/package/INSERT_RDIR
+Buildroot: /home/dbannon/libqt5pas/cbindings/package/INSERT_RDIR
 Name: libqt5pas-devel
 Version: 
 Release: 
 Summary: Qt5 interface bindings for Pascal Devel Package
 License: LGPLv3+
 Packager: David Bannon <tomboy-ng@bannons.id.au>
-URL: https://github.com/davidbannon/libqt6pas
+URL: https://github.com/davidbannon/libqt5pas
 Requires: INSERT_DEPEND
-Provides: libqt5pas-devel = 2.15
+Provides: libqt5pas-devel = 2.16
 # Next line for Mageia 9
 Obsoletes: lib64qt5pas-devel = 2.6.lazarus2.2.0
 # Next line for Fedora 37-39
