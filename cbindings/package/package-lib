@@ -15,7 +15,7 @@
 #
 #	    David Bannon 2022-11-25
 
-PACKVER='4'		# should start at '1', rev if you re-package same binary
+PACKVER='1'		# should start at '1', rev if you re-package same binary
 
 LIBNAME=libQt5Pas
 PRODUCT="libqt5pas"	# lib has upper case Q - P, this appears in Package name, add '1' to lib, -dev to devlib
