@@ -41,7 +41,7 @@ FULLLIBNAME="$LIBNAME".so."$MAJORVER"."$VERSION"
 
 ARCH=unknown		# we will set further down. amd64  arm64 and armhf, note: arm64 aka aarch64 ? 
 DIR_ARCH=unknown
-M_ARCH=`uname -m`	# Might return, eg aarch64, x86_64, i686. Raspi running 32bit returns armv7l - possibly RasPi version specific ?
+M_ARCH=`uname -m`	# Might return, eg aarch64, x86_64, i686. Raspi running 32bit returns armv7l or armv6l - possibly RasPi version specific ?
 
 WHOAMI="David Bannon <tomboy-ng@bannons.id.au>"
 BUILDDATE=`date -R`
@@ -224,7 +224,7 @@ if [ "$M_ARCH" == "aarch64" ]; then	# OK, arm64 hardware but maybe 32bit OS ?
 	OSBITNESS=`getconf LONG_BIT`
 	if [ "$OSBITNESS" == "32" ]; then
 	    echo "NOTE : 32bit OS running on 64bit arm hardware"
-	    ARCH="armv7hl"              # Mageia 9 includes 'h' - hard float ?
+	    ARCH="armhf"              # Mageia 9 includes 'h' - hard float ?
 	    DIR_ARCH="arm-linux-gnueabihf"
 	    RDIR_ARCH="lib"
 	    M_ARCH="$ARCH"
@@ -234,7 +234,7 @@ if [ "$M_ARCH" == "aarch64" ]; then	# OK, arm64 hardware but maybe 32bit OS ?
 	    RDIR_ARCH="lib64"		# Where RPMs put the library        
 	fi
 fi
-if [ "$M_ARCH" == "armv7l" ]; then		# 32 bit arm, eg raspi
+if [ "$M_ARCH" == "armv6l" ]; then		# 32 bit arm, eg raspi
 	ARCH="armhf"
 	DIR_ARCH="arm-linux-gnueabihf"
 	RDIR_ARCH="lib"		# Where RPMs put the library         TODO !!!
