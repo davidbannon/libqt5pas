@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-24.04
             name: 'Linux 64'
 
     # Steps represent a sequence of tasks that will be executed as part of the job

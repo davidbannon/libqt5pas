@@ -8,9 +8,12 @@
 
 <size:small>Don't edit this markdown file, its generated from the tomboy-ng note.</size:small>
 
-<bold>Please Note :A release version of Lazarus earlier than Lazarus 3.0 does not use these libraries. However, if you build with Lazarus 3.0 or later (including the current 3.0rc1 or 3.0rc2) you do need them (unless you build your own)</bold>.
+<bold>Please Note : Do you actually need these libraries ?  If you are using your distro's packaged Lazarus, you should use your distro's packaged libqt5pas libraries. Only people who build Lazarus from source might need these libraries. Might ? If you use a distro that has recent versions in its repo, you should use them, not the ones here.</bold>
 
-At some point in time, after the formal release of Lazarus 3.0, the distributions will start shipping the newer libQt5pas and only Lazarus Main users will need these packages again. Note, its likely there will be some conflict of version numbers, we will see !
+<bold>At last update, the list of distros with suitable libraries include -</bold>
+<list><list-item dir="ltr"><bold>Ubuntu 24.04 or later.</bold></list-item></list>
+<list><list-item dir="ltr"><bold>Fedora 41 or later.</bold></list-item></list>
+<list><list-item dir="ltr"><bold>Any (?) up to date Arch based system.</bold></list-item></list>
 
 Download packaged libraries for Intel 64 bit and arm 32 and 64 bit  from https://github.com/davidbannon/libqt5pas/releases/latest
 
@@ -38,13 +41,14 @@ If you are using older distributions, or distributions built on an older base su
 
 Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work with Lazarus Qt5 even with the addition of these libraries. Their Qt5 is too old.
 
-Its believed that these libraries will always be backwards compatible, that is, the ones here will work with any earlier Lazarus (as long as the distribution's Qt5 itself is OK).
+These libraries are built on Ubuntu 20.04, its believed they will always be backwards compatible, that is, the ones here will work with any earlier Lazarus (as long as the distribution's Qt5 itself is OK).
 
 <bold>PLEASE report any probems you have, I cannot fix a problem I don't know about.</bold>
 
+
 </note-content></text>
-  <last-change-date>2023-10-31T21:23:21.3107508+11:00</last-change-date>
-  <last-metadata-change-date>2023-10-31T21:23:21.3107508+11:00</last-metadata-change-date>
+  <last-change-date>2025-04-22T19:46:37.3177474+10:00</last-change-date>
+  <last-metadata-change-date>2025-04-22T19:46:37.3177474+10:00</last-metadata-change-date>
   <create-date>2022-11-08T13:46:34.2510486+11:00</create-date>
   <cursor-position>1</cursor-position>
   <selection-bound-position>1</selection-bound-position>

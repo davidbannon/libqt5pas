@@ -11,11 +11,17 @@ README
 
 
 
-**Please Note :A release version of Lazarus earlier than Lazarus 3.0 does not use these libraries. However, if you build with Lazarus 3.0 or later (including the current 3.0rc1 or 3.0rc2) you do need them (unless you build your own)**.
+**Please Note : Do you actually need these libraries ?  If you are using your distro's packaged Lazarus, you should use your distro's packaged libqt5pas libraries. Only people who build Lazarus from source might need these libraries. Might ? If you use a distro that has recent versions in its repo, you should use them, not the ones here.**
 
 
 
-At some point in time, after the formal release of Lazarus 3.0, the distributions will start shipping the newer libQt5pas and only Lazarus Main users will need these packages again. Note, its likely there will be some conflict of version numbers, we will see !
+**At last update, the list of distros with suitable libraries include -**
+
+* **Ubuntu 24.04 or later.**
+
+* **Fedora 41 or later.**
+
+* **Any (?) up to date Arch based system.**
 
 
 
@@ -71,10 +77,12 @@ Note that even earlier Linux Distributions, such as Ubuntu 16.04 will not work w
 
 
 
-Its believed that these libraries will always be backwards compatible, that is, the ones here will work with any earlier Lazarus (as long as the distribution's Qt5 itself is OK).
+These libraries are built on Ubuntu 20.04, its believed they will always be backwards compatible, that is, the ones here will work with any earlier Lazarus (as long as the distribution's Qt5 itself is OK).
 
 
 
 **PLEASE report any probems you have, I cannot fix a problem I don't know about.**
+
+
 
 
