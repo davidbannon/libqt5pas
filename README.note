@@ -11,6 +11,7 @@
 <bold>Please Note : Do you actually need these libraries ?  If you are using your distro's packaged Lazarus, you should use your distro's packaged libqt5pas libraries. Only people who build Lazarus from source might need these libraries. Might ? If you use a distro that has recent versions in its repo, you should use them, not the ones here.</bold>
 
 <bold>At last update, the list of distros with suitable libraries include -</bold>
+<list><list-item dir="ltr"><bold>Debian Trixey or later.</bold></list-item></list>
 <list><list-item dir="ltr"><bold>Ubuntu 24.04 or later.</bold></list-item></list>
 <list><list-item dir="ltr"><bold>Fedora 41 or later.</bold></list-item></list>
 <list><list-item dir="ltr"><bold>Any (?) up to date Arch based system.</bold></list-item></list>
@@ -46,9 +47,10 @@ These libraries are built on Ubuntu 20.04, its believed they will always be back
 <bold>PLEASE report any probems you have, I cannot fix a problem I don't know about.</bold>
 
 
+
 </note-content></text>
-  <last-change-date>2025-04-22T19:46:37.3177474+10:00</last-change-date>
-  <last-metadata-change-date>2025-04-22T19:46:37.3177474+10:00</last-metadata-change-date>
+  <last-change-date>2025-04-22T20:00:49.2848676+10:00</last-change-date>
+  <last-metadata-change-date>2025-04-22T20:00:49.2848676+10:00</last-metadata-change-date>
   <create-date>2022-11-08T13:46:34.2510486+11:00</create-date>
   <cursor-position>1</cursor-position>
   <selection-bound-position>1</selection-bound-position>

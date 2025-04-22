@@ -17,6 +17,8 @@ README
 
 **At last update, the list of distros with suitable libraries include -**
 
+* **Debian Trixey or later.**
+
 * **Ubuntu 24.04 or later.**
 
 * **Fedora 41 or later.**
@@ -82,6 +84,8 @@ These libraries are built on Ubuntu 20.04, its believed they will always be back
 
 
 **PLEASE report any probems you have, I cannot fix a problem I don't know about.**
+
+
 
 
 
